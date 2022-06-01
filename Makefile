@@ -9,7 +9,7 @@ BIN_DIRECTORY := bin
 DEFAULT_BUILD_TARGET := release
 OTHER_BUILD_TARGETS := debug test
 
-COMPILER_FLAGS := -Wall -std=c++20 -I $(SRC_DIRECTORY)
+COMPILER_FLAGS := -Wall -std=c++17 -I $(SRC_DIRECTORY)
 LINKER_FLAGS :=
 
 debug:   COMPILER_FLAGS += -O0 -g
