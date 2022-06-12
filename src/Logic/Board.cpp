@@ -33,9 +33,62 @@ bool Board::checkWin(uint16_t x, uint16_t y) {
     assert(x < width && y < height);
 
     // calculate borders for check
-    uint16_t left   = (int32_t)x - 3 < 0         ? 0        : x - 3;
-    uint16_t right  = (int32_t)x + 3 >= width-1  ? width-1  : x + 3;
-    uint16_t bottom = (int32_t)y - 3 < 0         ? 0        : y - 3;
-    uint16_t top    = (int32_t)y + 3 >= height-1 ? height-1 : y + 3;
+    uint16_t left   = (int32_t)centerX - 3 < 0         ? 0        : centerX - 3;
+    uint16_t right  = (int32_t)centerX + 3 >= width-1  ? width-1  : centerX + 3;
+    uint16_t bottom = (int32_t)centerY - 3 < 0         ? 0        : centerY - 3;
+    uint16_t top    = (int32_t)centerY + 3 >= height-1 ? height-1 : centerY + 3;
+
+    CellState cellState = getCell(centerX, centerY);
+    uint8_t count[4] {};
+    for (int8_t offsetX = -3, offsetY = -3; offsetX <= 3; offsetX++, offsetY++) {
+        bool b1 = centerX + offsetX <= right && centerX + offsetX >= left;
+        bool b2 = centerY + offsetY <= top   && centerY + offsetY >= bottom;
+        bool b3 = centerY - offsetY <= top   && centerY - offsetY >= bottom;
+        uint16_t x = centerX + offsetX;
+        uint16_t y = centerY + offsetY;
+        uint16_t y2 = centerY - offsetY;
+        if (b1) {
+            if (getCell(x, centerY) == cellState) {
+                count[0]++;
+                if (count[0] == 4) {
+                    return true;
+                }
+            } else {
+                count[0] = 0;
+            }
+        }
+        if (b2) {
+            if (getCell(centerX, y) == cellState) {
+                count[1]++;
+                if (count[1] == 4) {
+                    return true;
+                }
+            } else {
+                count[1] = 0;
+            }
+        }
+        if (b1 && b2) {
+            if (getCell(x, y) == cellState) {
+                count[2]++;
+                if (count[2] == 4) {
+                    return true;
+                }
+            } else {
+                count[2] = 0;
+            }
+        }
+        if (b1 && b3) {
+            if (getCell(x, y2) == cellState) {
+                count[3]++;
+                if (count[3] == 4) {
+                    return true;
+                }
+            } else {
+                count[3] = 0;
+            }
+        }
+    }
+
+    return false;
 
 }
