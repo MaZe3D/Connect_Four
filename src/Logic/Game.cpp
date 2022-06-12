@@ -1,4 +1,33 @@
 #include "Game.h"
 
-Game::Game(Actor& actor1, Actor& actor2, uint16_t boardWith, uint16_t boardHeight)
-    : m_board(boardWith, boardHeight) {}
+Game::Game(std::shared_ptr<Actor>& actor1, std::shared_ptr<Actor>& actor2, uint16_t boardWith, uint16_t boardHeight, void (* const turnCallback)(const Game&))
+    : m_actors{actor1, actor2}, m_board(boardWith, boardHeight), m_turnCallback{turnCallback} {}
+
+Game::GameResult Game::run() {
+    for (uint8_t currentActor = 0; true; currentActor = !currentActor) {
+        m_turnCallback(*this);
+
+        Board::TurnResult tr;
+        uint8_t count = 0;
+        do {
+            uint16_t column = m_actors[currentActor]->makeMove(*this);
+            tr = m_board.dropCoin(column, currentActor ? Board::CellState::PLAYER2 : Board::CellState::PLAYER1);
+            count++;
+        } while(tr == Board::TurnResult::INVALID && count < 3);
+
+        if (tr == Board::TurnResult::VALID_WIN) return currentActor ? GameResult::PLAYER2 : GameResult::PLAYER1;
+        if (m_board.isFull()) return GameResult::DRAW;
+    }
+}
+
+const Board& Game::getBoard() const {
+    return m_board;
+}
+
+const std::shared_ptr<Actor>& Game::getActor1() const {
+    return m_actors[0];
+}
+
+const std::shared_ptr<Actor>& Game::getActor2() const {
+    return m_actors[1];
+}

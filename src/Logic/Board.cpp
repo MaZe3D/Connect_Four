@@ -5,7 +5,8 @@ Board::Board(uint16_t width, uint16_t height)
     : height{height}, width{width}
 {
     assert(height && width);
-    m_cells = new CellState[height*width];
+    m_cells = new CellState[(uint32_t)height*width];
+    for (uint32_t i = 0; i < height*width; i++) m_cells[i] = CellState::EMPTY;
 }
 
 Board::~Board() {
@@ -92,4 +93,11 @@ bool Board::checkWin(uint16_t centerX, uint16_t centerY) {
 
     return false;
 
+}
+
+bool Board::isFull() {
+    for (uint16_t i = 0; i < width; ++i) {
+        if (getCell(i, height-1) == Board::CellState::EMPTY) return false;
+    }
+    return true;
 }

@@ -14,6 +14,7 @@ public:
     ~Board();
     CellState getCell(uint16_t x, uint16_t y);
     TurnResult dropCoin(uint16_t column, CellState state);
+    bool isFull();
 
 private:
     CellState* m_cells;
