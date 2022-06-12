@@ -29,8 +29,9 @@ Board::TurnResult Board::dropCoin(uint16_t column, CellState state) {
     return TurnResult::INVALID;
 }
 
-bool Board::checkWin(uint16_t x, uint16_t y) {
-    assert(x < width && y < height);
+bool Board::checkWin(uint16_t centerX, uint16_t centerY) {
+    assert(centerX < width && centerY < height);
+    assert(getCell(centerX, centerY) != CellState::EMPTY);
 
     // calculate borders for check
     uint16_t left   = (int32_t)centerX - 3 < 0         ? 0        : centerX - 3;

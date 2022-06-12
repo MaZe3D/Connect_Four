@@ -17,5 +17,5 @@ public:
 
 private:
     CellState* m_cells;
-    bool checkWin(uint16_t x, uint16_t y);
+    bool checkWin(uint16_t centerX, uint16_t centerY);
 };

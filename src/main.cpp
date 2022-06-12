@@ -13,17 +13,15 @@ void printTurnResult(Board::TurnResult tr) {
 
 Board b(10, 20);
 int main() {
-    uint16_t i = -1;
-    std::cout << sizeof(i) << std::endl;
-    std::cout << sizeof(i +(int32_t)1) << std::endl;
-
-    std::cout << "start" << std::endl;
-    std::cout << "mid" << std::endl;
-    //exit(0);
-    //std::abort();
-    //delete b;
-    std::cout << "end" << std::endl;
-
-	std::cout << "hello world" << std::endl;
+    printTurnResult(b.dropCoin(0, Board::CellState::PLAYER1));
+    printTurnResult(b.dropCoin(0, Board::CellState::PLAYER1));
+    printTurnResult(b.dropCoin(0, Board::CellState::PLAYER1));
+    printTurnResult(b.dropCoin(0, Board::CellState::PLAYER2));
+    printTurnResult(b.dropCoin(1, Board::CellState::PLAYER1));
+    printTurnResult(b.dropCoin(1, Board::CellState::PLAYER1));
+    printTurnResult(b.dropCoin(1, Board::CellState::PLAYER1));
+    printTurnResult(b.dropCoin(2, Board::CellState::PLAYER1));
+    printTurnResult(b.dropCoin(2, Board::CellState::PLAYER1));
+    printTurnResult(b.dropCoin(3, Board::CellState::PLAYER1));
     return 0;
 }
