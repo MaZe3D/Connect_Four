@@ -1,5 +1,5 @@
 #include <iostream>
-#include "Logic/Board.h"
+#include "logic/Board.h"
 
 void printTurnResult(Board::TurnResult tr) {
     if (tr == Board::TurnResult::VALID_WIN) {
