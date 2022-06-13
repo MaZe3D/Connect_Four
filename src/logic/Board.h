@@ -7,8 +7,8 @@ public:
     enum class CellState { EMPTY, PLAYER1, PLAYER2 };
     enum class TurnResult { INVALID, VALID, VALID_WIN };
 
-    const uint16_t height;
     const uint16_t width;
+    const uint16_t height;
 
     Board(uint16_t width, uint16_t height);
     ~Board();

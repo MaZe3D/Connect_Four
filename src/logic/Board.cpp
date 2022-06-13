@@ -2,11 +2,11 @@
 #include <cassert>
 
 Board::Board(uint16_t width, uint16_t height)
-    : height{height}, width{width}
+    : width{width}, height{height}
 {
-    assert(height && width);
-    m_cells = new CellState[(uint32_t)height*width];
-    for (uint32_t i = 0; i < height*width; i++) m_cells[i] = CellState::EMPTY;
+    assert(width && height );
+    m_cells = new CellState[(uint32_t)width*height];
+    for (uint32_t i = 0; i < width*height; i++) m_cells[i] = CellState::EMPTY;
 }
 
 Board::~Board() {
