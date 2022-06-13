@@ -1,6 +1,7 @@
 #pragma once
 
 #include <inttypes.h>
+#include <memory>
 
 class Board {
 public:
@@ -11,12 +12,11 @@ public:
     const uint16_t height;
 
     Board(uint16_t width, uint16_t height);
-    ~Board();
     CellState getCell(uint16_t x, uint16_t y);
     TurnResult dropCoin(uint16_t column, CellState state);
     bool isFull();
 
 private:
-    CellState* m_cells;
+    std::unique_ptr<CellState[]> m_cells;
     bool checkWin(uint16_t centerX, uint16_t centerY);
 };

@@ -1,16 +1,13 @@
 #include "Board.h"
 #include <cassert>
+#include <memory>
 
 Board::Board(uint16_t width, uint16_t height)
     : width{width}, height{height}
 {
     assert(width && height );
-    m_cells = new CellState[(uint32_t)width*height];
+    m_cells = std::make_unique<CellState[]>((uint32_t)width*height);
     for (uint32_t i = 0; i < width*height; i++) m_cells[i] = CellState::EMPTY;
-}
-
-Board::~Board() {
-    delete[] m_cells;
 }
 
 Board::CellState Board::getCell(uint16_t x, uint16_t y) {
