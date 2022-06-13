@@ -10,24 +10,24 @@ Board::Board(uint16_t width, uint16_t height)
     for (uint32_t i = 0; i < width*height; i++) m_cells[i] = CellState::EMPTY;
 }
 
-Board::CellState Board::getCell(uint16_t x, uint16_t y) {
+Board::CellState Board::getCell(uint16_t x, uint16_t y) const {
     assert(x < width && y < height);
     return m_cells[y*height + x];
 }
 
-Board::TurnResult Board::dropCoin(uint16_t column, CellState state) {
+Board::TurnResult Board::dropCoin(uint16_t column, CellState playerState) {
     assert(column < width);
-    assert(state != CellState::EMPTY);
+    assert(playerState != CellState::EMPTY);
     for (int i = 0; i < height; i++) {
         if (getCell(column, i) == CellState::EMPTY) {
-            m_cells[i*height + column] = state;
+            m_cells[i*height + column] = playerState;
             return checkWin(column, i) ? TurnResult::VALID_WIN : TurnResult::VALID;
         }
     }
     return TurnResult::INVALID;
 }
 
-bool Board::checkWin(uint16_t centerX, uint16_t centerY) {
+bool Board::checkWin(uint16_t centerX, uint16_t centerY) const {
     assert(centerX < width && centerY < height);
     assert(getCell(centerX, centerY) != CellState::EMPTY);
 
@@ -92,7 +92,7 @@ bool Board::checkWin(uint16_t centerX, uint16_t centerY) {
 
 }
 
-bool Board::isFull() {
+bool Board::isFull() const {
     for (uint16_t i = 0; i < width; ++i) {
         if (getCell(i, height-1) == Board::CellState::EMPTY) return false;
     }
