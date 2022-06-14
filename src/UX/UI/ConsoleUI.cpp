@@ -160,20 +160,32 @@ std::string UI::Element::EvenGrid::drawRow(std::string columnEdge, std::string v
 
 void UI::Element::EvenGrid::draw()
 {
-    std::cout << cornerUpperLeft << drawRow(edgeTop,horizontalLine) <<cornerUpperRight << std::endl;
+    gotoXY(position);
+    uint16_t yOffset = 0;
+    std::cout << cornerUpperLeft << drawRow(edgeTop,horizontalLine) <<cornerUpperRight;
+    yOffset++;
+    gotoXY(Position{position.x, static_cast<uint16_t>(position.y+yOffset)});
     for(int k = 1; k < rows; k++)
     {
         for(int l = 0; l < cellHeight; l++)
         {
-            std::cout << verticalLine << drawRow(verticalLine," ") << verticalLine << std::endl;
+            std::cout << verticalLine << drawRow(verticalLine,fillChar) << verticalLine;
+            yOffset++;
+            gotoXY(Position{position.x, static_cast<uint16_t>(position.y+yOffset)});
         }
-        std::cout << edgeLeft << drawRow(crossLine, horizontalLine) << edgeRight << std::endl;
+        std::cout << edgeLeft << drawRow(crossLine, horizontalLine) << edgeRight;
+        yOffset++;
+        gotoXY(Position{position.x, static_cast<uint16_t>(position.y+yOffset)});
     }
      for(int l = 0; l < cellHeight; l++)
     {
-        std::cout << verticalLine << drawRow(verticalLine," ") << verticalLine << std::endl;
+        std::cout << verticalLine << drawRow(verticalLine,fillChar) << verticalLine;
+        yOffset++;
+        gotoXY(Position{position.x, static_cast<uint16_t>(position.y+yOffset)});
     }
-    std::cout << cornerLowerLeft << drawRow(edgeBottom,horizontalLine) << cornerLowerRight << std::endl;
+    std::cout << cornerLowerLeft << drawRow(edgeBottom,horizontalLine) << cornerLowerRight;
+    yOffset++;
+    gotoXY(Position{1, static_cast<uint16_t>(position.y+yOffset)});
 }
 
 void UI::Window::displayWindow()

@@ -31,7 +31,7 @@ int main()
     printTurnResult(b.dropCoin(0, Board::CellState::PLAYER1));
     printTurnResult(b.dropCoin(0, Board::CellState::PLAYER1));
     printTurnResult(b.dropCoin(0, Board::CellState::PLAYER2));
-    printTurnResult(b.dropCoin(1, Board::CellState::PLAYER1));
+    printTurnResult(b.dropCoin(1, Board::CellState::PLAYER1));  
     printTurnResult(b.dropCoin(1, Board::CellState::PLAYER1));
     printTurnResult(b.dropCoin(1, Board::CellState::PLAYER1));
     printTurnResult(b.dropCoin(2, Board::CellState::PLAYER1));
