@@ -170,6 +170,7 @@ void UI::Element::EvenGrid::draw()
 {
     gotoXY(position);
     uint16_t yOffset = 0;
+    std::cout << Primitive::ANSI::ESC << Primitive::getANSIColorString(foregroundColor , backgroundColor);
     std::cout << cornerUpperLeft << drawRow(edgeTop,horizontalLine) <<cornerUpperRight;
     yOffset++;
     gotoXY(Position{position.x, static_cast<uint16_t>(position.y+yOffset)});
