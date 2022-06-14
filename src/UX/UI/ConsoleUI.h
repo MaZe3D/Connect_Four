@@ -4,6 +4,7 @@
 #include <string>
 #include "gotoXY.h"
 #include <list>
+#include <memory>
 
 namespace UI::Primitive::ANSI
 {
@@ -143,8 +144,8 @@ namespace UI::Element
 
         std::string drawRow(std::string columnEdge, std::string verticalBody);
         virtual void draw() override;
-        
     };
+
 }
 
 namespace UI
@@ -152,9 +153,8 @@ namespace UI
     class Window
     {
     public:
-        std::list <UI::Element::UIElement*> elements;
-
-        Window(std::list<UI::Element::UIElement*> pElements);
+        std::list<std::unique_ptr<Element::UIElement>> elements;
+        
         Window();
 
         void displayWindow();

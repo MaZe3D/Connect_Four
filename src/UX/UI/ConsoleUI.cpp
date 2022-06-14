@@ -178,20 +178,20 @@ void UI::Element::EvenGrid::draw()
 
 void UI::Window::displayWindow()
 {
-    for(Element::UIElement* element : elements)
+    if (elements.empty())
+    {
+        throw std::runtime_error("No elements to display");
+    }
+
+    Primitive::clearScreen();
+    for(auto &element : elements)
     {
         element->draw();
     }
 }
 
-UI::Window::Window(std::list<UI::Element::UIElement*> pElements)
-{
-    elements = pElements;
-}
-
 UI::Window::Window()
 {
-    elements = std::list<UI::Element::UIElement*>();
 }
 
 void UI::Element::FilledRectangle::drawOutline()

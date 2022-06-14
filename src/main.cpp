@@ -18,9 +18,14 @@ Board b(10, 20);
 
 int main() 
 {
-    UI::Element::EvenGrid g(7,6,4,4);
-    g.draw();
-    //UI::Primitive::clearScreen();
+    //UI::Element::EvenGrid g(7,6,4,4);
+    //g.draw();
+    
+    UI::Window testWindow = UI::Window();
+
+    testWindow.elements.push_back(std::make_unique<UI::Element::Text>(UI::Primitive::FormattedText{"Hello World!", UI::Primitive::ANSI::Color::RED, UI::Primitive::ANSI::Color::BLACK}, Position{20, 10}));
+    testWindow.elements.push_back(std::make_unique<UI::Element::Text>(UI::Primitive::FormattedText{"Hello World!", UI::Primitive::ANSI::Color::RED, UI::Primitive::ANSI::Color::BLACK}, Position{20, 11}));
+    testWindow.displayWindow();
 
     printTurnResult(b.dropCoin(0, Board::CellState::PLAYER1));
     printTurnResult(b.dropCoin(0, Board::CellState::PLAYER1));
