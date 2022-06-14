@@ -137,7 +137,7 @@ namespace UI::Element
         std::string fillChar = " ";
 
         Primitive::ANSI::Color foregroundColor = Primitive::ANSI::Color::DEFAULT;
-        Primitive::ANSI::Color backgroundColor = Primitive::ANSI::Color::DEFAULT;
+        Primitive::ANSI::Color backgroundColor = Primitive::ANSI::Color::BLACK;
 
         std::string drawRow(std::string columnEdge, std::string verticalBody);
         virtual void draw() override;
