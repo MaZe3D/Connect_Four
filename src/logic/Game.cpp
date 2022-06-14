@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "Actor.h"
 
 Game::Game(std::shared_ptr<Actor>& actor1, std::shared_ptr<Actor>& actor2, uint16_t boardWith, uint16_t boardHeight, void (* const turnCallback)(const Game&))
     : m_actors{actor1, actor2}, m_board(boardWith, boardHeight), m_turnCallback{turnCallback} {}
