@@ -84,7 +84,6 @@ namespace UI::Element
         Position position;
         uint16_t width;
         uint16_t height;
-        bool filled = false;
 
         std::string cornerLowerLeft = "└";
         std::string cornerUpperRight = "┐";
@@ -99,6 +98,16 @@ namespace UI::Element
         Rectangle(Position position, uint16_t width, uint16_t height);
 
         virtual void draw() override;
+    };
+
+    class FilledRectangle : public Rectangle
+    {
+    public:
+        FilledRectangle(Position pPosition, uint16_t pWidth, uint16_t pHeight) : Rectangle(pPosition, pWidth, pHeight){};
+        virtual void draw() override;
+        std::string fillChar = " ";
+    private:
+        void drawOutline();
     };
 
     class EvenGrid : UIElement

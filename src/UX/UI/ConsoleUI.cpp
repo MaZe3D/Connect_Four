@@ -193,3 +193,44 @@ UI::Window::Window()
 {
     elements = std::list<UI::Element::UIElement*>();
 }
+
+void UI::Element::FilledRectangle::drawOutline()
+{
+    using namespace UI::Primitive;
+    gotoXY(position);
+    std::cout << ANSI::ESC << getANSIColorString(foregroundColor, backgroundColor) << cornerUpperLeft;
+    gotoXY(Position{static_cast<uint16_t>(position.x + width), position.y});
+    std::cout << ANSI::ESC << getANSIColorString(foregroundColor, backgroundColor) << cornerUpperRight;
+    gotoXY(Position{static_cast<uint16_t>(position.x + width), static_cast<uint16_t>(position.y + height)});
+    std::cout << ANSI::ESC << getANSIColorString(foregroundColor, backgroundColor) << cornerLowerRight;
+    gotoXY(Position{position.x, static_cast<uint16_t>(position.y + height)});
+    std::cout << ANSI::ESC << getANSIColorString(foregroundColor, backgroundColor) << cornerLowerLeft;
+
+    Shapes::printLine({horizontalLine, foregroundColor, backgroundColor, 
+        Position{static_cast<uint16_t>(position.x + 1), position.y},
+        Position{static_cast<uint16_t>(position.x + width - 1), position.y}});
+
+    Shapes::printLine({verticalLine, foregroundColor, backgroundColor, 
+        Position{static_cast<uint16_t>(position.x + width), static_cast<uint16_t>(position.y + 1)},
+        Position{static_cast<uint16_t>(position.x + width), static_cast<uint16_t>(position.y + height - 1)}});
+
+    Shapes::printLine({horizontalLine, foregroundColor, backgroundColor, 
+        Position{static_cast<uint16_t>(position.x + 1), static_cast<uint16_t>(position.y + height)},
+        Position{static_cast<uint16_t>(position.x + width - 1), static_cast<uint16_t>(position.y + height)}});
+
+    Shapes::printLine({verticalLine, foregroundColor, backgroundColor, 
+        Position{position.x, static_cast<uint16_t>(position.y + 1)},
+        Position{position.x, static_cast<uint16_t>(position.y + height - 1)}});
+}
+
+void UI::Element::FilledRectangle::draw()
+{
+    drawOutline();
+    using namespace UI::Primitive;
+    for (int i = 1; i <= height - 1; i++)
+    {
+        Shapes::printLine({fillChar, foregroundColor, backgroundColor, 
+            Position{static_cast<uint16_t>(position.x + 1), static_cast<uint16_t>(position.y + i)},
+            Position{static_cast<uint16_t>(position.x + width - 1), static_cast<uint16_t>(position.y + i)}});
+    }
+}
