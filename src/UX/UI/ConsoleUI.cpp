@@ -139,6 +139,14 @@ UI::Element::Rectangle::Rectangle(Position pPosition, uint16_t pWidth, uint16_t 
     width = pWidth;
     height = pHeight;
 }
+UI::Element::EvenGrid::EvenGrid(uint16_t pColumns,uint16_t pRows,uint16_t pcellWidth,uint16_t pCellHeight, Position pPosition)
+{
+    columns = pColumns;
+    rows = pRows;
+    cellWidth = pcellWidth;
+    cellHeight = pCellHeight;
+    position = pPosition;
+}
 
 std::string UI::Element::EvenGrid::drawRow(std::string columnEdge, std::string verticalBody)
 {

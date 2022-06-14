@@ -111,16 +111,10 @@ namespace UI::Element
         void drawOutline();
     };
 
-    class EvenGrid : UIElement
+    class EvenGrid : public UIElement
     {
     public:
-        EvenGrid(uint16_t pColumns,uint16_t pRows,uint16_t pcellWidth,uint16_t pCellHeight, Position pPosition) : UIElement{},
-            columns(pColumns),
-            rows(pRows),
-            cellWidth(pcellWidth),
-            cellHeight(pCellHeight),
-            position(pPosition)
-            {}
+        EvenGrid(uint16_t pColumns,uint16_t pRows,uint16_t pcellWidth,uint16_t pCellHeight, Position pPosition);
         Position position;
         uint16_t columns;
         uint16_t rows;

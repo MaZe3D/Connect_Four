@@ -25,6 +25,7 @@ int main()
 
     testWindow.elements.push_back(std::make_unique<UI::Element::Text>(UI::Primitive::FormattedText{"Hello World!", UI::Primitive::ANSI::Color::RED, UI::Primitive::ANSI::Color::BLACK}, Position{20, 10}));
     testWindow.elements.push_back(std::make_unique<UI::Element::Text>(UI::Primitive::FormattedText{"Hello World!", UI::Primitive::ANSI::Color::RED, UI::Primitive::ANSI::Color::BLACK}, Position{20, 11}));
+    testWindow.elements.push_back(std::make_unique<UI::Element::EvenGrid>(10,10,1,1,Position{10,12}));
     testWindow.displayWindow();
 
     printTurnResult(b.dropCoin(0, Board::CellState::PLAYER1));
