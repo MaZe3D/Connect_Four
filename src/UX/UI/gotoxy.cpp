@@ -1,7 +1,7 @@
 #include "gotoxy.h"
 
 //Unix/Linux/
-void gotoxy(Position pos)
+void gotoXY(Position pos)
 {
     std::cout << "\033[" << pos.y << ";" << pos.x << "H";
 }

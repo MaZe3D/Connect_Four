@@ -15,11 +15,9 @@ void printTurnResult(Board::TurnResult tr) {
 
 Board b(10, 20);
 
-using namespace UI::Primitive;
-using namespace UI::Primitive::ANSI;
-int main() {
-    printFormattedText(FormattedText{ "Hello World", Color::CYAN, Color::YELLOW });
-/*
+int main() 
+{
+    UI::Primitive::clearScreen();
     printTurnResult(b.dropCoin(0, Board::CellState::PLAYER1));
     printTurnResult(b.dropCoin(0, Board::CellState::PLAYER1));
     printTurnResult(b.dropCoin(0, Board::CellState::PLAYER1));
@@ -30,6 +28,5 @@ int main() {
     printTurnResult(b.dropCoin(2, Board::CellState::PLAYER1));
     printTurnResult(b.dropCoin(2, Board::CellState::PLAYER1));
     printTurnResult(b.dropCoin(3, Board::CellState::PLAYER1));
- */
-   return 0;
+    return 0;
 }

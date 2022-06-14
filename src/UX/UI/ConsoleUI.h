@@ -43,4 +43,82 @@ namespace UI::Primitive
     
     void printFormattedText(FormattedText text);
     void printFormattedText(FormattedText text, Position pos);
+
+    void clearScreen();
 }
+
+namespace UI::Primitive::Shapes
+{
+    struct Line : FormattedText
+    {
+        Position start;
+        Position end;
+    };
+
+    void printLine(Line);
+}
+
+namespace UI::Element
+{
+    class UIElement
+    {
+    public:
+        virtual void draw() = 0;
+    };
+
+    class Text : public UIElement
+    {
+    public:
+        virtual void draw() override;
+        Position position;
+        Primitive::FormattedText formattedText;
+    };
+
+    class Ractangle : public UIElement
+    {
+    public:
+        Position position;
+        uint16_t width;
+        uint16_t height;
+        bool filled = false;
+
+        std::string cornerUpperLeft = "└";
+        std::string cornerUpperRight = "┐";
+        std::string cornerLowerLeft = "┘";
+        std::string cornerLowerRight = "┌";
+
+        std::string horisontalLine = "-";
+
+        virtual void draw() override;
+    };
+
+    class EvenGrid : UIElement
+    {
+    public:
+        Position position;
+        uint16_t columns;
+        uint16_t rows;
+        uint16_t cellWidth;
+        uint16_t cellHeight;
+        bool filled = false;
+
+        std::string verticalLine = "|";
+        std::string horisontalLine = "-";
+        std::string crossLine = "+";
+        std::string cornerUpperLeft = "└";
+        std::string cornerUpperRight = "┐";
+        std::string cornerLowerLeft = "┘";
+        std::string cornerLowerRight = "┌";
+        std::string edgeTop = "┬";
+        std::string edgeBottom = "┴";
+        std::string edgeLeft = "├";
+        std::string edgeRight = "┤";
+
+        Primitive::ANSI::Color foregroundColor = Primitive::ANSI::Color::DEFAULT;
+        Primitive::ANSI::Color backgroundColor = Primitive::ANSI::Color::DEFAULT;
+
+
+        virtual void draw() override;
+    };
+}
+
