@@ -95,6 +95,29 @@ namespace UI::Element
         virtual void draw() override;
     };
 
+    class Rectangle : public UIElement
+    {
+    public:
+        Position position;
+        uint16_t width;
+        uint16_t height;
+        bool filled = false;
+
+        std::string cornerLowerLeft = "└";
+        std::string cornerUpperRight = "┐";
+        std::string cornerLowerRight = "┘";
+        std::string cornerUpperLeft = "┌";
+        std::string horizontalLine = "─";
+        std::string verticalLine = "│";
+
+        Primitive::ANSI::Color foregroundColor = Primitive::ANSI::Color::DEFAULT;
+        Primitive::ANSI::Color backgroundColor = Primitive::ANSI::Color::RESET;
+
+        Rectangle(Position position, uint16_t width, uint16_t height);
+
+        virtual void draw() override;
+    };
+
     class EvenGrid : UIElement
     {
     public:
