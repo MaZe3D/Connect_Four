@@ -104,11 +104,12 @@ namespace UI::Element
     class EvenGrid : UIElement
     {
     public:
-        EvenGrid(uint16_t a,uint16_t b,uint16_t c,uint16_t d) : UIElement{},
-            columns(a),
-            rows(b),
-            cellWidth(c),
-            cellHeight(d)
+        EvenGrid(uint16_t pColumns,uint16_t pRows,uint16_t pcellWidth,uint16_t pCellHeight, Position pPosition) : UIElement{},
+            columns(pColumns),
+            rows(pRows),
+            cellWidth(pcellWidth),
+            cellHeight(pCellHeight),
+            position(pPosition)
             {}
         Position position;
         uint16_t columns;
@@ -128,6 +129,7 @@ namespace UI::Element
         std::string edgeBottom = "┴";
         std::string edgeLeft = "├";
         std::string edgeRight = "┤";
+        std::string fillChar = " ";
 
         Primitive::ANSI::Color foregroundColor = Primitive::ANSI::Color::DEFAULT;
         Primitive::ANSI::Color backgroundColor = Primitive::ANSI::Color::DEFAULT;

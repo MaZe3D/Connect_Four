@@ -18,15 +18,17 @@ Board b(10, 20);
 
 int main() 
 {
-    UI::Element::EvenGrid g(7,6,4,4);
+    UI::Primitive::clearScreen();
+    UI::Element::EvenGrid g(7,6,2,2,Position{15,2});
     g.draw();
-    //UI::Primitive::clearScreen();
+
+    UI::Window testWindow();
 
     printTurnResult(b.dropCoin(0, Board::CellState::PLAYER1));
     printTurnResult(b.dropCoin(0, Board::CellState::PLAYER1));
     printTurnResult(b.dropCoin(0, Board::CellState::PLAYER1));
     printTurnResult(b.dropCoin(0, Board::CellState::PLAYER2));
-    printTurnResult(b.dropCoin(1, Board::CellState::PLAYER1));
+    printTurnResult(b.dropCoin(1, Board::CellState::PLAYER1));  
     printTurnResult(b.dropCoin(1, Board::CellState::PLAYER1));
     printTurnResult(b.dropCoin(1, Board::CellState::PLAYER1));
     printTurnResult(b.dropCoin(2, Board::CellState::PLAYER1));
