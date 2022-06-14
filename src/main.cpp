@@ -1,6 +1,5 @@
 #include <iostream>
 #include "logic/Board.h"
-#include "UX/UI/gotoxy.h"
 #include "UX/UI/ConsoleUI.h"
 
 void printTurnResult(Board::TurnResult tr) {
