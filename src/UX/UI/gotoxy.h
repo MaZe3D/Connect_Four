@@ -9,4 +9,4 @@ struct Position
 };
 
 
-void gotoxy(Position pos);
+void gotoXY(Position pos);

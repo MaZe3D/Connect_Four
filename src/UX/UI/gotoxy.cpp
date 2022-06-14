@@ -1,4 +1,4 @@
-#include "gotoxy.h"
+#include "gotoXY.h"
 
 //Unix/Linux/
 void gotoXY(Position pos)

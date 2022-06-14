@@ -2,7 +2,7 @@
 #include <stdint.h>
 #include <iostream>
 #include <string>
-#include "gotoxy.h"
+#include "gotoXY.h"
 
 namespace UI::Primitive::ANSI
 {
@@ -86,8 +86,11 @@ namespace UI::Element
         std::string cornerUpperRight = "┐";
         std::string cornerLowerLeft = "┘";
         std::string cornerLowerRight = "┌";
-
         std::string horisontalLine = "-";
+        std::string verticalLine = "|";
+
+        Primitive::ANSI::Color foregroundColor = Primitive::ANSI::Color::DEFAULT;
+        Primitive::ANSI::Color backgroundColor = Primitive::ANSI::Color::DEFAULT;
 
         virtual void draw() override;
     };

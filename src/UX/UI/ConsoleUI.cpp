@@ -83,6 +83,12 @@ void UI::Primitive::Shapes::printLine(Line line) //bresnham algorithm
     std::cout << ANSI::ESC << getANSIColorString(line.foregroundColor, line.backgroundColor) << line.text;
 }
 
+void UI::Element::Ractangle::draw()
+{
+    using namespace UI::Primitive;
+    std::cout << ANSI::ESC << getANSIColorString(foregroundColor, backgroundColor) << cornerUpperLeft;
+}
+
 void UI::Element::EvenGrid::draw()
 {
 }
