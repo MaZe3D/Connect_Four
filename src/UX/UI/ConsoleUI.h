@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include "gotoXY.h"
+#include <list>
 
 namespace UI::Primitive::ANSI
 {
@@ -72,27 +73,9 @@ namespace UI::Element
         virtual void draw() override;
         Position position;
         Primitive::FormattedText formattedText;
-    };
 
-    class Ractangle : public UIElement
-    {
-    public:
-        Position position;
-        uint16_t width;
-        uint16_t height;
-        bool filled = false;
-
-        std::string cornerUpperLeft = "└";
-        std::string cornerUpperRight = "┐";
-        std::string cornerLowerLeft = "┘";
-        std::string cornerLowerRight = "┌";
-        std::string horisontalLine = "-";
-        std::string verticalLine = "|";
-
-        Primitive::ANSI::Color foregroundColor = Primitive::ANSI::Color::DEFAULT;
-        Primitive::ANSI::Color backgroundColor = Primitive::ANSI::Color::DEFAULT;
-
-        virtual void draw() override;
+        Text(Primitive::FormattedText pFormattedText, Position pPosition);
+        Text();
     };
 
     class Rectangle : public UIElement
@@ -155,3 +138,16 @@ namespace UI::Element
     };
 }
 
+namespace UI
+{
+    class Window
+    {
+    public:
+        std::list <UI::Element::UIElement*> elements;
+
+        Window(std::list<UI::Element::UIElement*> pElements);
+        Window();
+
+        void displayWindow();
+    };
+}

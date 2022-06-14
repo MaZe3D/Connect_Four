@@ -113,12 +113,33 @@ void UI::Element::Rectangle::draw()
 
 }
 
+UI::Element::Text::Text()
+{
+    formattedText.text = "";
+    formattedText.foregroundColor = Primitive::ANSI::Color::DEFAULT;
+    formattedText.backgroundColor = Primitive::ANSI::Color::RESET;
+}
+
+UI::Element::Text::Text(Primitive::FormattedText pFormattedText, Position pPosition)
+{
+    formattedText = pFormattedText;
+    position = pPosition;
+}
+
+void UI::Element::Text::draw()
+{
+    using namespace UI::Primitive;
+    gotoXY(position);
+    printFormattedText(formattedText);
+}
+
 UI::Element::Rectangle::Rectangle(Position pPosition, uint16_t pWidth, uint16_t pHeight)
 {
     position = pPosition;
     width = pWidth;
     height = pHeight;
 }
+
 std::string UI::Element::EvenGrid::drawRow(std::string columnEdge, std::string verticalBody)
 {
     std::string verticalCellBody;
@@ -136,6 +157,7 @@ std::string UI::Element::EvenGrid::drawRow(std::string columnEdge, std::string v
     }
     return rowBody + verticalCellBody;
 }
+
 void UI::Element::EvenGrid::draw()
 {
     std::cout << cornerUpperLeft << drawRow(edgeTop,horizontalLine) <<cornerUpperRight << std::endl;
@@ -152,4 +174,22 @@ void UI::Element::EvenGrid::draw()
         std::cout << verticalLine << drawRow(verticalLine," ") << verticalLine << std::endl;
     }
     std::cout << cornerLowerLeft << drawRow(edgeBottom,horizontalLine) << cornerLowerRight << std::endl;
+}
+
+void UI::Window::displayWindow()
+{
+    for(Element::UIElement* element : elements)
+    {
+        element->draw();
+    }
+}
+
+UI::Window::Window(std::list<UI::Element::UIElement*> pElements)
+{
+    elements = pElements;
+}
+
+UI::Window::Window()
+{
+    elements = std::list<UI::Element::UIElement*>();
 }
