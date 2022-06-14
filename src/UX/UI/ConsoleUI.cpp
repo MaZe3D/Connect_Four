@@ -85,6 +85,9 @@ void UI::Primitive::Shapes::printLine(Line line) //bresnham algorithm
 
 void UI::Element::Rectangle::draw()
 {
+    width = width - 1;
+    height = height - 1;
+
     using namespace UI::Primitive;
     gotoXY(position);
     std::cout << ANSI::ESC << getANSIColorString(foregroundColor, backgroundColor) << cornerUpperLeft;
@@ -208,44 +211,16 @@ void UI::Window::displayWindow()
     {
         element->draw();
     }
+    gotoXY(1,30);
 }
 
 UI::Window::Window()
 {
 }
 
-void UI::Element::FilledRectangle::drawOutline()
-{
-    using namespace UI::Primitive;
-    gotoXY(position);
-    std::cout << ANSI::ESC << getANSIColorString(foregroundColor, backgroundColor) << cornerUpperLeft;
-    gotoXY(Position{static_cast<uint16_t>(position.x + width), position.y});
-    std::cout << ANSI::ESC << getANSIColorString(foregroundColor, backgroundColor) << cornerUpperRight;
-    gotoXY(Position{static_cast<uint16_t>(position.x + width), static_cast<uint16_t>(position.y + height)});
-    std::cout << ANSI::ESC << getANSIColorString(foregroundColor, backgroundColor) << cornerLowerRight;
-    gotoXY(Position{position.x, static_cast<uint16_t>(position.y + height)});
-    std::cout << ANSI::ESC << getANSIColorString(foregroundColor, backgroundColor) << cornerLowerLeft;
-
-    Shapes::printLine({horizontalLine, foregroundColor, backgroundColor, 
-        Position{static_cast<uint16_t>(position.x + 1), position.y},
-        Position{static_cast<uint16_t>(position.x + width - 1), position.y}});
-
-    Shapes::printLine({verticalLine, foregroundColor, backgroundColor, 
-        Position{static_cast<uint16_t>(position.x + width), static_cast<uint16_t>(position.y + 1)},
-        Position{static_cast<uint16_t>(position.x + width), static_cast<uint16_t>(position.y + height - 1)}});
-
-    Shapes::printLine({horizontalLine, foregroundColor, backgroundColor, 
-        Position{static_cast<uint16_t>(position.x + 1), static_cast<uint16_t>(position.y + height)},
-        Position{static_cast<uint16_t>(position.x + width - 1), static_cast<uint16_t>(position.y + height)}});
-
-    Shapes::printLine({verticalLine, foregroundColor, backgroundColor, 
-        Position{position.x, static_cast<uint16_t>(position.y + 1)},
-        Position{position.x, static_cast<uint16_t>(position.y + height - 1)}});
-}
-
 void UI::Element::FilledRectangle::draw()
 {
-    drawOutline();
+    Rectangle::draw();
     using namespace UI::Primitive;
     for (int i = 1; i <= height - 1; i++)
     {
@@ -253,4 +228,9 @@ void UI::Element::FilledRectangle::draw()
             Position{static_cast<uint16_t>(position.x + 1), static_cast<uint16_t>(position.y + i)},
             Position{static_cast<uint16_t>(position.x + width - 1), static_cast<uint16_t>(position.y + i)}});
     }
+}
+
+void UI::Primitive::setScreenSize(uint16_t pWidth, uint16_t pHeight)
+{
+    std::cout << ANSI::ESC << "[8;" << pWidth << ";" << pHeight << "t";
 }

@@ -3,7 +3,7 @@
 #include <iostream>
 #include <string>
 #include "gotoXY.h"
-#include <list>
+#include <vector>
 #include <memory>
 
 namespace UI::Primitive::ANSI
@@ -47,6 +47,8 @@ namespace UI::Primitive
     void printFormattedText(FormattedText text, Position pos);
 
     void clearScreen();
+    void setScreenSize(uint16_t width, uint16_t height);
+    void setBacgroundColor(ANSI::Color color);
 }
 
 namespace UI::Primitive::Shapes
@@ -108,7 +110,6 @@ namespace UI::Element
         virtual void draw() override;
         std::string fillChar = " ";
     private:
-        void drawOutline();
     };
 
     class EvenGrid : public UIElement
@@ -149,10 +150,11 @@ namespace UI
     class Window
     {
     public:
-        std::list<std::unique_ptr<Element::UIElement>> elements;
+        std::vector<std::shared_ptr<Element::UIElement>> elements;
         
         Window();
 
         void displayWindow();
+        void setWindowBackgroundColor(Primitive::ANSI::Color color);
     };
 }
