@@ -134,9 +134,9 @@ namespace UI::Element
         uint16_t cellHeight;
         bool filled = false;
 
-        std::string verticalLine = "|";
-        std::string horizontalLine = "-";
-        std::string crossLine = "+";
+        std::string verticalLine = "│";
+        std::string horizontalLine = "─";
+        std::string crossLine = "┼";
         std::string cornerUpperLeft = "┌";
         std::string cornerUpperRight = "┐";
         std::string cornerLowerLeft = "└";
