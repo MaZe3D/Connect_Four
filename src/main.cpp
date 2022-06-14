@@ -17,7 +17,9 @@ Board b(10, 20);
 
 int main() 
 {
-    UI::Primitive::clearScreen();
+    UI::Element::EvenGrid g(7,6,4,4);
+    g.draw();
+    //UI::Primitive::clearScreen();
     printTurnResult(b.dropCoin(0, Board::CellState::PLAYER1));
     printTurnResult(b.dropCoin(0, Board::CellState::PLAYER1));
     printTurnResult(b.dropCoin(0, Board::CellState::PLAYER1));

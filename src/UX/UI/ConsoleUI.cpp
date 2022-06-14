@@ -88,7 +88,37 @@ void UI::Element::Ractangle::draw()
     using namespace UI::Primitive;
     std::cout << ANSI::ESC << getANSIColorString(foregroundColor, backgroundColor) << cornerUpperLeft;
 }
+std::string UI::Element::EvenGrid::drawRow(std::string columnEdge, std::string verticalBody)
+{
+    std::string verticalCellBody;
+    for(int j = 0; j < cellWidth; j++)
+    {
+        verticalCellBody += verticalBody;
+    }
 
+    std::string rowBody;
+    int i = 1;
+    while(i<columns)
+    {
+        rowBody += verticalCellBody + columnEdge;
+        i++;
+    }
+    return rowBody + verticalCellBody;
+}
 void UI::Element::EvenGrid::draw()
 {
+    std::cout << cornerUpperLeft << drawRow(edgeTop,horizontalLine) <<cornerUpperRight << std::endl;
+    for(int k = 1; k < rows; k++)
+    {
+        for(int l = 0; l < cellHeight; l++)
+        {
+            std::cout << verticalLine << drawRow(verticalLine," ") << verticalLine << std::endl;
+        }
+        std::cout << edgeLeft << drawRow(crossLine, horizontalLine) << edgeRight << std::endl;
+    }
+     for(int l = 0; l < cellHeight; l++)
+    {
+        std::cout << verticalLine << drawRow(verticalLine," ") << verticalLine << std::endl;
+    }
+    std::cout << cornerLowerLeft << drawRow(edgeBottom,horizontalLine) << cornerLowerRight << std::endl;
 }
