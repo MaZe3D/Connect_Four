@@ -6,40 +6,71 @@ SRC_DIRECTORY := src
 OBJ_DIRECTORY := .obj
 BIN_DIRECTORY := bin
 
-DEFAULT_BUILD_TARGET := release
-OTHER_BUILD_TARGETS := debug test
+DEFAULT_BUILD_TARGET := debug
+OTHER_BUILD_TARGETS := release test
+
+LIBRARIES := logic
 
 COMPILER_FLAGS := -Wall -std=c++17 -I $(SRC_DIRECTORY)
 LINKER_FLAGS :=
 
-debug:   COMPILER_FLAGS += -O0 -g
-release: COMPILER_FLAGS += -O2
+COMPILER_FLAGS_debug   := $(COMPILER_FLAGS) -O0 -g
+COMPILER_FLAGS_release := $(COMPILER_FLAGS) -O2 -DNDEBUG# -Wno-unused-command-line-argument
 
 
 
 # ---------------------------------- make magic - do not touch ----------------------------------
-source_files := \
+
+define find_library_source
+$1_library_source_files := \
+	$$(wildcard $$(SRC_DIRECTORY)/$1/*$$(SOURCE_FILE_EXTENSION)) \
+	$$(wildcard $$(SRC_DIRECTORY)/$1/*/*$$(SOURCE_FILE_EXTENSION)) \
+	$$(wildcard $$(SRC_DIRECTORY)/$1/*/*/*$$(SOURCE_FILE_EXTENSION)) \
+	$$(wildcard $$(SRC_DIRECTORY)/$1/*/*/*/*$$(SOURCE_FILE_EXTENSION))
+endef
+
+$(foreach lib,$(LIBRARIES),\
+	$(eval $(call find_library_source,$(lib))))
+library_source_files = $(foreach lib,$(LIBRARIES),$($(lib)_library_source_files))
+
+source_files = $(filter-out $(library_source_files), \
 	$(wildcard $(SRC_DIRECTORY)/*$(SOURCE_FILE_EXTENSION)) \
 	$(wildcard $(SRC_DIRECTORY)/*/*$(SOURCE_FILE_EXTENSION)) \
 	$(wildcard $(SRC_DIRECTORY)/*/*/*$(SOURCE_FILE_EXTENSION)) \
 	$(wildcard $(SRC_DIRECTORY)/*/*/*/*$(SOURCE_FILE_EXTENSION)) \
-	$(wildcard $(SRC_DIRECTORY)/*/*/*/*/*$(SOURCE_FILE_EXTENSION))
+	$(wildcard $(SRC_DIRECTORY)/*/*/*/*/*$(SOURCE_FILE_EXTENSION)) \
+)
 
+# $1: build target
+# $2: library path
+define create_library_target
+library_object_files_$1_$2 := $$(patsubst $$(SRC_DIRECTORY)/%$$(SOURCE_FILE_EXTENSION),$$(OBJ_DIRECTORY)/$1/%.o,$($2_library_source_files))
+$$(OBJ_DIRECTORY)/$1/$2.a: $$(library_object_files_$1_$2)
+	@mkdir -p $$(@D)
+	ar rcs $$@ $$^
+endef
+
+# $1: build target
 define create_build_target
 object_files_$1 := $$(patsubst $$(SRC_DIRECTORY)/%$$(SOURCE_FILE_EXTENSION),$$(OBJ_DIRECTORY)/$1/%.o,$$(source_files))
+library_files_$1 := $$(foreach lib,$$(LIBRARIES),$$(OBJ_DIRECTORY)/$1/$$(lib).a)
+COMPILER_FLAGS_$1 ?= $$(COMPILER_FLAGS)
 
 .PHONY: $1 run_$1
 $1: $$(BIN_DIRECTORY)/$1
-$$(BIN_DIRECTORY)/$1: $$(object_files_$1)
+$$(BIN_DIRECTORY)/$1: $$(object_files_$1) $$(library_files_$1)
 	@mkdir -p $$(@D)
 	$$(COMPILER_AND_LINKER) $$(strip $$(LINKER_FLAGS) $$^ -o $$@)
 
+$$(foreach lib,$$(LIBRARIES),\
+	$$(eval $$(call create_library_target,$1,$$(lib))))
+
 $$(OBJ_DIRECTORY)/$1/%.o: $$(SRC_DIRECTORY)/%$$(SOURCE_FILE_EXTENSION)
 	@mkdir -p $$(@D)
-	$$(COMPILER_AND_LINKER) $$(strip $$(COMPILER_FLAGS) -c $$< -o $$@)
+	$$(COMPILER_AND_LINKER) $$(strip $$(COMPILER_FLAGS_$1) -c $$< -o $$@)
 
-run_$1: $$(BIN_DIRECTORY)/$1
-	$$<
+run_$1: $1
+	$(BIN_DIRECTORY)/$1
 endef
 
 $(foreach build_target,$(DEFAULT_BUILD_TARGET) $(OTHER_BUILD_TARGETS),\
