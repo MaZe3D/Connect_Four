@@ -2,7 +2,7 @@
 
 #include "Actor.h"
 
-class Bot : private Actor {
+class HorizontalBot : private Actor {
 public:
     uint16_t makeMove(const Game& game) override;
 };

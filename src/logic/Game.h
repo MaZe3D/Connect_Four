@@ -1,8 +1,9 @@
 #pragma once
 
-#include "Actor.h"
 #include "Board.h"
 #include <memory>
+
+class Actor;
 
 class Game {
 public:

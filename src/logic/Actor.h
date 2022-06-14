@@ -1,8 +1,7 @@
 #pragma once
 
 #include <stdint.h>
-
-class Game;
+#include "Game.h"
 
 class Actor {
 public:
