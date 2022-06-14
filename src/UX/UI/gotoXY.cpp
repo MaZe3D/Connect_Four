@@ -3,7 +3,19 @@
 //Unix/Linux/
 void gotoXY(Position pos)
 {
-    std::cout << "\033[" << pos.y << ";" << pos.x << "H";
+    if (pos.x > 0 && pos.y > 0)
+    {
+        std::cout << "\033[" << pos.y << ";" << pos.x << "H";
+    }
+    else
+    {
+        throw std::runtime_error("Invalid position");
+    } 
+}
+
+void gotoXY(uint16_t x, uint16_t y)
+{
+    gotoXY(Position{x, y});
 }
 
 /* //Windows
