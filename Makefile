@@ -15,7 +15,7 @@ COMPILER_FLAGS := -Wall -std=c++17 -I $(SRC_DIRECTORY)
 LINKER_FLAGS :=
 
 COMPILER_FLAGS_debug   := $(COMPILER_FLAGS) -O0 -g
-COMPILER_FLAGS_release := $(COMPILER_FLAGS) -O2 -DNDEBUG# -Wno-unused-command-line-argument
+COMPILER_FLAGS_release := $(COMPILER_FLAGS) -O2 -DNDEBUG
 
 
 
@@ -60,7 +60,7 @@ COMPILER_FLAGS_$1 ?= $$(COMPILER_FLAGS)
 $1: $$(BIN_DIRECTORY)/$1
 $$(BIN_DIRECTORY)/$1: $$(object_files_$1) $$(library_files_$1)
 	@mkdir -p $$(@D)
-	$$(COMPILER_AND_LINKER) $$(strip $$(LINKER_FLAGS) $$^ -o $$@)
+	$$(COMPILER_AND_LINKER) $$(strip -o $$@ $$^ $$(LINKER_FLAGS))
 
 $$(foreach lib,$$(LIBRARIES),\
 	$$(eval $$(call create_library_target,$1,$$(lib))))
