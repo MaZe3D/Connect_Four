@@ -11,8 +11,11 @@ public:
     Control();
     virtual ~Control();
     static void showWelcomeScreen();
+    static void initGameScreen();
+    static UI::Window _gameWindow;
     
 
 private:
     static uint16_t getMenuSelection(std::vector<std::string> menuItems);
+   
 };

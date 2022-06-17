@@ -21,3 +21,17 @@ void Control::showWelcomeScreen()
 
     welcomeWindow.displayWindow();
 }
+
+UI::Window Control::_gameWindow = UI::Window();
+
+void Control::initGameScreen()
+{
+    const uint16_t xOffset = 8;
+    UI::Window gameWindow = UI::Window();
+    gameWindow.elements.push_back(std::make_unique<UI::Element::Text>(UI::Primitive::FormattedText{"Player 1 to move!", UI::Primitive::ANSI::Color::RED, UI::Primitive::ANSI::Color::BLACK}, Position{xOffset+1, 2}));
+    //gameWindow.elements.push_back(std::make_unique<UI::Element::Text>(UI::Primitive::FormattedText{"Hello World!", UI::Primitive::ANSI::Color::RED, UI::Primitive::ANSI::Color::BLACK}, Position{20, 11}));
+    gameWindow.elements.push_back(std::make_unique<UI::Element::EvenGrid>(7,6,1,1,Position{xOffset+2,4}));
+    gameWindow.elements.push_back(std::make_unique<UI::Element::Text>(UI::Primitive::FormattedText{"1 2 3 4 5 6 7", UI::Primitive::ANSI::Color::BRIGHT_GREEN, UI::Primitive::ANSI::Color::BLACK}, Position{xOffset+3, 17}));
+
+    _gameWindow = gameWindow;
+}
