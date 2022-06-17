@@ -154,16 +154,13 @@ namespace UI
     {
     public:
         std::vector<std::shared_ptr<Element::UIElement>> elements;
-        
-        Screen();
 
+        UI::Primitive::ANSI::Color backgroundColor = Primitive::ANSI::Color::BLACK;
         void displayScreen();
-        void setWindowBackgroundColor(Primitive::ANSI::Color color);
         void setScreenSize(uint16_t pWidth, uint16_t pHeight);
         static void setBackgroundColor(UI::Primitive::ANSI::Color color);
         Position cursorPos = Position{1, 1};
     private:
-        
         static uint16_t _windowWidth;
         static uint16_t _windowHeight;
     };
