@@ -1,5 +1,6 @@
 #include "ConsoleUI.h"
 
+
 std::string UI::Primitive::getANSIColorString(ANSI::Color foreground, ANSI::Color background)
 {
     using namespace UI::Primitive::ANSI;

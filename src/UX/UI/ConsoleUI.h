@@ -5,6 +5,7 @@
 #include "gotoXY.h"
 #include <vector>
 #include <memory>
+#include "logic/Board.h"
 
 namespace UI::Primitive::ANSI
 {
@@ -142,14 +143,7 @@ namespace UI::Element
         virtual void draw() override;
     };
 
-class boardConfig : public UIElement
-{
-    public:
-    
-    
-    virtual void draw() override;
 
-};
 
 }
 

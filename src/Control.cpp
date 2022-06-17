@@ -88,14 +88,46 @@ uint32_t Control::getUserInput(int min, int max)
 
 UI::Screen Control::_gameWindow = UI::Screen();
 
-void Control::initGameScreen()
+void Control::printBoard(Board pBoard, Position gridPosition)
+{
+    std::string cellCharacter;
+    Position currentCellPosition = gridPosition;
+    for(int i = 0; i<pBoard.height; i++)
+    {
+        gotoXY(gridPosition);
+        for(int j=0; j<pBoard.width; j++)
+        {
+            currentCellPosition = Position{ static_cast<uint16_t>(gridPosition.x+1+2*j), static_cast<uint16_t>(gridPosition.y+1+2*i)};
+
+            if(pBoard.getCell(gridPosition.x,gridPosition.y) == Board::CellState::EMPTY)
+            {
+                gotoXY(currentCellPosition);
+                std::cout << " ";
+            }
+            else if(pBoard.getCell(gridPosition.x,gridPosition.y) == Board::CellState::PLAYER1)
+            {
+                _gameWindow.elements.push_back(std::make_unique<UI::Element::Text>(UI::Primitive::FormattedText{"●", UI::Primitive::ANSI::Color::RED, UI::Primitive::ANSI::Color::BLACK}, Position{currentCellPosition}));
+            }
+            else if(pBoard.getCell(gridPosition.x,gridPosition.y) == Board::CellState::PLAYER2)
+            {
+                 _gameWindow.elements.push_back(std::make_unique<UI::Element::Text>(UI::Primitive::FormattedText{"●", UI::Primitive::ANSI::Color::BLUE, UI::Primitive::ANSI::Color::BLACK}, Position{currentCellPosition}));
+            }
+        }
+    }
+}
+
+void Control::initGameScreen(Board currentBoard, Board::CellState turn)
 {
     const uint16_t xOffset = 8;
     UI::Screen gameWindow = UI::Screen();
-    gameWindow.elements.push_back(std::make_unique<UI::Element::Text>(UI::Primitive::FormattedText{"Player 1 to move!", UI::Primitive::ANSI::Color::RED, UI::Primitive::ANSI::Color::BLACK}, Position{xOffset+1, 2}));
+    Position gridPosition = Position{xOffset + 2,4};
+    //std::string turnChar = "1";
+
+    gameWindow.elements.push_back(std::make_unique<UI::Element::Text>(UI::Primitive::FormattedText{"Somebody please make a move", UI::Primitive::ANSI::Color::RED, UI::Primitive::ANSI::Color::BLACK}, Position{xOffset+1, 2}));
     //gameWindow.elements.push_back(std::make_unique<UI::Element::Text>(UI::Primitive::FormattedText{"Hello World!", UI::Primitive::ANSI::Color::RED, UI::Primitive::ANSI::Color::BLACK}, Position{20, 11}));
     gameWindow.elements.push_back(std::make_unique<UI::Element::EvenGrid>(7,6,1,1,Position{xOffset+2,4}));
     gameWindow.elements.push_back(std::make_unique<UI::Element::Text>(UI::Primitive::FormattedText{"1 2 3 4 5 6 7", UI::Primitive::ANSI::Color::BRIGHT_GREEN, UI::Primitive::ANSI::Color::BLACK}, Position{xOffset+3, 17}));
-
+    //printBoard(currentBoard, gridPosition);
     _gameWindow = gameWindow;
 }
+
