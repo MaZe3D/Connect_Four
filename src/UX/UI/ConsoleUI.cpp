@@ -208,17 +208,13 @@ void UI::Screen::displayScreen()
     {
         throw std::runtime_error("No elements to display");
     }
-
+    setBackgroundColor(backgroundColor);
     Primitive::clearScreen();
     for(auto &element : elements)
     {
         element->draw();
     }
     gotoXY(cursorPos);
-}
-
-UI::Screen::Screen()
-{
 }
 
 void UI::Element::FilledRectangle::draw()
