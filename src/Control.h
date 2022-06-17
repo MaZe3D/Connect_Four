@@ -18,7 +18,7 @@ private:
     static void initMainMenu();
     static uint32_t getNummericInput();
     static uint32_t getUserInput(int min, int max);
-    static UI::Window _mainMenu;
+    static UI::Screen _mainMenu;
     static void initGameScreen();
-    static UI::Window _gameWindow;   
+    static UI::Screen _gameWindow;   
 };

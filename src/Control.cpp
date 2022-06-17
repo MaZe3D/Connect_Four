@@ -1,11 +1,11 @@
 #include "Control.h"
 
-UI::Window Control::_mainMenu = UI::Window();	// Initialize static member
+UI::Screen Control::_mainMenu = UI::Screen();	// Initialize static member
 
 void Control::initMainMenu()
 {
     using namespace UI::Primitive;
-    UI::Window welcomeWindow = UI::Window();  
+    UI::Screen welcomeWindow = UI::Screen();  
     
     welcomeWindow.elements.push_back(std::make_shared<UI::Element::FilledRectangle>(Position{7, 3}, 30, 5));
     auto filledRectangle = dynamic_cast<UI::Element::FilledRectangle* const>(welcomeWindow.elements[0].get());
@@ -37,9 +37,9 @@ void Control::runProgram()
 
 bool Control::showMainMenu()
 {
-    UI::Window::setBackgroundColor(UI::Primitive::ANSI::Color::BLACK);
+    UI::Screen::setBackgroundColor(UI::Primitive::ANSI::Color::BLACK);
     initMainMenu();
-    _mainMenu.displayWindow();
+    _mainMenu.displayScreen();
     int selection;
     while ((selection = getNummericInput()) != 4)
     {
@@ -86,12 +86,12 @@ uint32_t Control::getUserInput(int min, int max)
     return input;
 }
 
-UI::Window Control::_gameWindow = UI::Window();
+UI::Screen Control::_gameWindow = UI::Screen();
 
 void Control::initGameScreen()
 {
     const uint16_t xOffset = 8;
-    UI::Window gameWindow = UI::Window();
+    UI::Screen gameWindow = UI::Screen();
     gameWindow.elements.push_back(std::make_unique<UI::Element::Text>(UI::Primitive::FormattedText{"Player 1 to move!", UI::Primitive::ANSI::Color::RED, UI::Primitive::ANSI::Color::BLACK}, Position{xOffset+1, 2}));
     //gameWindow.elements.push_back(std::make_unique<UI::Element::Text>(UI::Primitive::FormattedText{"Hello World!", UI::Primitive::ANSI::Color::RED, UI::Primitive::ANSI::Color::BLACK}, Position{20, 11}));
     gameWindow.elements.push_back(std::make_unique<UI::Element::EvenGrid>(7,6,1,1,Position{xOffset+2,4}));

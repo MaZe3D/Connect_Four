@@ -156,14 +156,14 @@ class boardConfig : public UIElement
 
 namespace UI
 {
-    class Window
+    class Screen
     {
     public:
         std::vector<std::shared_ptr<Element::UIElement>> elements;
         
-        Window();
+        Screen();
 
-        void displayWindow();
+        void displayScreen();
         void setWindowBackgroundColor(Primitive::ANSI::Color color);
         void setScreenSize(uint16_t pWidth, uint16_t pHeight);
         static void setBackgroundColor(UI::Primitive::ANSI::Color color);

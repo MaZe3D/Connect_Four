@@ -200,7 +200,7 @@ void UI::Element::EvenGrid::draw()
     gotoXY(Position{1, static_cast<uint16_t>(position.y+yOffset)});
 }
 
-void UI::Window::displayWindow()
+void UI::Screen::displayScreen()
 {
     if (elements.empty())
     {
@@ -215,7 +215,7 @@ void UI::Window::displayWindow()
     gotoXY(cursorPos);
 }
 
-UI::Window::Window()
+UI::Screen::Screen()
 {
 }
 
@@ -236,17 +236,17 @@ void UI::Primitive::setScreenSize(uint16_t pWidth, uint16_t pHeight)
     std::cout << ANSI::ESC << "[8;" << pWidth << ";" << pHeight << "t";
 }
 
-void UI::Window::setScreenSize(uint16_t pWidth, uint16_t pHeight)
+void UI::Screen::setScreenSize(uint16_t pWidth, uint16_t pHeight)
 {
     Primitive::setScreenSize(pWidth, pHeight);
     _windowWidth = pWidth;
     _windowHeight = pHeight;
 }
 
-uint16_t UI::Window::_windowWidth = 160;
-uint16_t UI::Window::_windowHeight = 30;
+uint16_t UI::Screen::_windowWidth = 160;
+uint16_t UI::Screen::_windowHeight = 30;
 
-void UI::Window::setBackgroundColor(UI::Primitive::ANSI::Color color)
+void UI::Screen::setBackgroundColor(UI::Primitive::ANSI::Color color)
 {
     std::cout << Primitive::ANSI::ESC << Primitive::getANSIColorString(Primitive::ANSI::Color::DEFAULT, color) << "m";
     for(int i = 1; i <= _windowHeight; i++)
