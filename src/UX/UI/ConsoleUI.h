@@ -48,7 +48,6 @@ namespace UI::Primitive
 
     void clearScreen();
     void setScreenSize(uint16_t width, uint16_t height);
-    void setBacgroundColor(ANSI::Color color);
 }
 
 namespace UI::Primitive::Shapes
@@ -156,5 +155,12 @@ namespace UI
 
         void displayWindow();
         void setWindowBackgroundColor(Primitive::ANSI::Color color);
+        void setScreenSize(uint16_t pWidth, uint16_t pHeight);
+        static void setBackgroundColor(UI::Primitive::ANSI::Color color);
+        Position cursorPos = Position{1, 1};
+    private:
+        
+        static uint16_t _windowWidth;
+        static uint16_t _windowHeight;
     };
 }

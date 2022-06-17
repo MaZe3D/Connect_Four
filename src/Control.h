@@ -10,9 +10,13 @@ class Control
 public:
     Control();
     virtual ~Control();
-    static void showWelcomeScreen();
-    
+    static void runProgram();
 
 private:
     static uint16_t getMenuSelection(std::vector<std::string> menuItems);
+    static bool showMainMenu();
+    static void initMainMenu();
+    static uint32_t getNummericInput();
+    static uint32_t getUserInput(int min, int max);
+    static UI::Window _mainMenu;
 };

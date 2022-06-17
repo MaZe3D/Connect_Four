@@ -212,7 +212,7 @@ void UI::Window::displayWindow()
     {
         element->draw();
     }
-    gotoXY(1,30);
+    gotoXY(cursorPos);
 }
 
 UI::Window::Window()
@@ -234,4 +234,27 @@ void UI::Element::FilledRectangle::draw()
 void UI::Primitive::setScreenSize(uint16_t pWidth, uint16_t pHeight)
 {
     std::cout << ANSI::ESC << "[8;" << pWidth << ";" << pHeight << "t";
+}
+
+void UI::Window::setScreenSize(uint16_t pWidth, uint16_t pHeight)
+{
+    Primitive::setScreenSize(pWidth, pHeight);
+    _windowWidth = pWidth;
+    _windowHeight = pHeight;
+}
+
+uint16_t UI::Window::_windowWidth = 160;
+uint16_t UI::Window::_windowHeight = 30;
+
+void UI::Window::setBackgroundColor(UI::Primitive::ANSI::Color color)
+{
+    std::cout << Primitive::ANSI::ESC << Primitive::getANSIColorString(Primitive::ANSI::Color::DEFAULT, color) << "m";
+    for(int i = 1; i <= _windowHeight; i++)
+    {
+        gotoXY(Position{1, static_cast<uint16_t>(i)});
+        for(int j = 1; j <= _windowWidth; j++)
+        {
+            std::cout << " ";
+        }
+    }
 }

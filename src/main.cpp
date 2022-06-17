@@ -19,5 +19,6 @@ Board b(10, 20);
 
 int main() 
 {
-    Control::showWelcomeScreen();
+    Control::runProgram();
+    
 }
