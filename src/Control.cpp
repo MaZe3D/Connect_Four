@@ -8,8 +8,16 @@ void Control::initMainMenu()
     UI::Window welcomeWindow = UI::Window();  
     
     welcomeWindow.elements.push_back(std::make_shared<UI::Element::FilledRectangle>(Position{7, 3}, 30, 5));
-    dynamic_cast<UI::Element::FilledRectangle* const>(welcomeWindow.elements[0].get())->backgroundColor = ANSI::Color::BLACK;
-    dynamic_cast<UI::Element::FilledRectangle* const>(welcomeWindow.elements[0].get())->foregroundColor = ANSI::Color::GREEN;
+    auto filledRectangle = dynamic_cast<UI::Element::FilledRectangle* const>(welcomeWindow.elements[0].get());
+    filledRectangle->backgroundColor = ANSI::Color::BLACK;
+    filledRectangle->foregroundColor = ANSI::Color::GREEN;
+
+    filledRectangle->cornerLowerLeft = "╚";
+    filledRectangle->cornerUpperRight = "╗";
+    filledRectangle->cornerLowerRight = "╝";
+    filledRectangle->cornerUpperLeft = "╔";
+    filledRectangle->horizontalLine = "═";
+    filledRectangle->verticalLine = "║";
 
     welcomeWindow.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{"Welcome to Connect Four!", ANSI::Color::GREEN, ANSI::Color::BLACK}, Position{10, 5}));
     welcomeWindow.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{"Menu", ANSI::Color::GREEN, ANSI::Color::BLACK}, Position{10, 9}));
