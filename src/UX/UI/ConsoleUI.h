@@ -142,7 +142,17 @@ namespace UI::Element
         virtual void draw() override;
     };
 
+class boardConfig : public UIElement
+{
+    public:
+    
+    
+    virtual void draw() override;
+
+};
+
 }
+
 
 namespace UI
 {
