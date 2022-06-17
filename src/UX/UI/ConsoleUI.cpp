@@ -114,6 +114,8 @@ void UI::Element::Rectangle::draw()
         Position{position.x, static_cast<uint16_t>(position.y + 1)},
         Position{position.x, static_cast<uint16_t>(position.y + height - 1)}});
 
+    width = width + 1;
+    height = height + 1;
 }
 
 UI::Element::Text::Text()
@@ -223,11 +225,11 @@ void UI::Element::FilledRectangle::draw()
 {
     Rectangle::draw();
     using namespace UI::Primitive;
-    for (int i = 1; i <= height - 1; i++)
+    for (int i = 1; i < height - 1; i++)
     {
         Shapes::printLine({fillChar, foregroundColor, backgroundColor, 
             Position{static_cast<uint16_t>(position.x + 1), static_cast<uint16_t>(position.y + i)},
-            Position{static_cast<uint16_t>(position.x + width - 1), static_cast<uint16_t>(position.y + i)}});
+            Position{static_cast<uint16_t>(position.x + width - 2), static_cast<uint16_t>(position.y + i)}});
     }
 }
 
