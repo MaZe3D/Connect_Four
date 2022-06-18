@@ -16,8 +16,7 @@ Board::CellState Board::getCell(uint16_t x, uint16_t y) const {
 }
 
 Board::TurnResult Board::dropCoin(uint16_t column, CellState playerState) {
-    assert(column < width);
-    assert(playerState != CellState::EMPTY);
+	if (column >= width || playerState == CellState::EMPTY) return TurnResult::INVALID;
     for (int i = 0; i < height; i++) {
         if (getCell(column, i) == CellState::EMPTY) {
             m_cells[i*height + column] = playerState;
