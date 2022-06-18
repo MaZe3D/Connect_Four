@@ -1,9 +1,8 @@
 #pragma once
 
-#include "Actor.h"
+#include "../Actor.h"
 
-class VerticalBot :  public Actor {
+class HorizontalBot : public Actor {
 public:
     uint16_t makeMove(const Game& game) override;
 };
-

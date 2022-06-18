@@ -5,11 +5,11 @@
 #include "UX/UI/ConsoleUI.h"
 #include <stdint.h>
 #include "logic/Game.h"
-#include "logic/Player.h"
-#include "logic/RandomBot.h"
-#include "logic/HorizontalBot.h"
-#include "logic/VerticalBot.h"
-#include "logic/ColumnBot.h"
+#include "logic/actors/Player.h"
+#include "logic/actors/RandomBot.h"
+#include "logic/actors/HorizontalBot.h"
+#include "logic/actors/VerticalBot.h"
+#include "logic/actors/ColumnBot.h"
 #include <memory>
 
 class Control
