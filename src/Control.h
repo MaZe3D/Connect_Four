@@ -18,7 +18,7 @@ public:
     Control();
     virtual ~Control();
     static void runProgram();
-    static void printBoard(Board pBoard, Position gridPosition);
+    static void createUIElementsBoard(const Game& game, Position gridPosition);
 
 private:
     static bool showMainMenu();
@@ -35,10 +35,10 @@ private:
     static void initMainMenu();
     static void initPlayerTypeMenu();
     static void initBotTypeMenu(uint8_t botNumber);
-    static void initGameScreen(Board pBoard, Board::CellState turn);
+    static void initGameScreen(const Game& game);
 
     static UI::Screen _mainMenu;
     static UI::Screen _playerTypeMenu;
     static UI::Screen _botTypeMenu;
-    static UI::Screen _gameWindow;
+    static UI::Screen _gameScreen;
 };

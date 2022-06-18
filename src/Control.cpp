@@ -140,49 +140,54 @@ uint32_t Control::getNummericInput()
     }
 }
 
-UI::Screen Control::_gameWindow = UI::Screen();
+UI::Screen Control::_gameScreen = UI::Screen();
 
-void Control::printBoard(Board pBoard, Position gridPosition)
+void Control::createUIElementsBoard(const Game& game, Position gridPosition)
 {
-    std::string cellCharacter;
+
     Position currentCellPosition = gridPosition;
-    for(int i = 0; i<pBoard.height; i++)
+    for(int i = 0; i<game.getBoard().height; i++)
     {
         gotoXY(gridPosition);
-        for(int j=0; j<pBoard.width; j++)
+        for(int j=game.getBoard().width-1; j>0; j--)
         {
-            currentCellPosition = Position{ static_cast<uint16_t>(gridPosition.x+1+2*j), static_cast<uint16_t>(gridPosition.y+1+2*i)};
+            currentCellPosition = Position{ static_cast<uint16_t>(gridPosition.x+2+4*j), static_cast<uint16_t>(gridPosition.y+2+2*i)};
 
-            if(pBoard.getCell(gridPosition.x,gridPosition.y) == Board::CellState::EMPTY)
+            if(game.getBoard().getCell(j,i) == Board::CellState::EMPTY)
             {
                 gotoXY(currentCellPosition);
-                std::cout << " ";
+                UI::Primitive::printFormattedText(UI::Primitive::FormattedText{" ",UI::Primitive::ANSI::Color::DEFAULT,UI::Primitive::ANSI::Color::BLACK},currentCellPosition);
             }
-            else if(pBoard.getCell(gridPosition.x,gridPosition.y) == Board::CellState::PLAYER1)
+            else if(game.getBoard().getCell(j,i) == Board::CellState::PLAYER1)
             {
-                _gameWindow.elements.push_back(std::make_unique<UI::Element::Text>(UI::Primitive::FormattedText{"●", UI::Primitive::ANSI::Color::RED, UI::Primitive::ANSI::Color::BLACK}, Position{currentCellPosition}));
+                _gameScreen.elements.push_back(std::make_unique<UI::Element::Text>(UI::Primitive::FormattedText{" • ", UI::Primitive::ANSI::Color::MAGENTA, UI::Primitive::ANSI::Color::BLACK}, Position{currentCellPosition}));
             }
-            else if(pBoard.getCell(gridPosition.x,gridPosition.y) == Board::CellState::PLAYER2)
+            else if(game.getBoard().getCell(j,i) == Board::CellState::PLAYER2)
             {
-                 _gameWindow.elements.push_back(std::make_unique<UI::Element::Text>(UI::Primitive::FormattedText{"●", UI::Primitive::ANSI::Color::BLUE, UI::Primitive::ANSI::Color::BLACK}, Position{currentCellPosition}));
+                 _gameScreen.elements.push_back(std::make_unique<UI::Element::Text>(UI::Primitive::FormattedText{" • ", UI::Primitive::ANSI::Color::YELLOW, UI::Primitive::ANSI::Color::BLACK}, Position{currentCellPosition}));
             }
         }
     }
 }
 
-void Control::initGameScreen(Board currentBoard, Board::CellState turn)
+void Control::initGameScreen(const Game& game)
 {
     const uint16_t xOffset = 8;
-    UI::Screen gameWindow = UI::Screen();
+    UI::Screen gameScreen = UI::Screen();
     Position gridPosition = Position{xOffset + 2,4};
     //std::string turnChar = "1";
 
-    gameWindow.elements.push_back(std::make_unique<UI::Element::Text>(UI::Primitive::FormattedText{"Somebody please make a move", UI::Primitive::ANSI::Color::RED, UI::Primitive::ANSI::Color::BLACK}, Position{xOffset+1, 2}));
+    //gameWindow.elements.push_back(std::make_unique<UI::Element::Text>(UI::Primitive::FormattedText{"Somebody please make a move", UI::Primitive::ANSI::Color::RED, UI::Primitive::ANSI::Color::BLACK}, Position{xOffset+1, 2}));
     //gameWindow.elements.push_back(std::make_unique<UI::Element::Text>(UI::Primitive::FormattedText{"Hello World!", UI::Primitive::ANSI::Color::RED, UI::Primitive::ANSI::Color::BLACK}, Position{20, 11}));
-    gameWindow.elements.push_back(std::make_unique<UI::Element::EvenGrid>(7,6,1,1,Position{xOffset+2,4}));
-    gameWindow.elements.push_back(std::make_unique<UI::Element::Text>(UI::Primitive::FormattedText{"1 2 3 4 5 6 7", UI::Primitive::ANSI::Color::BRIGHT_GREEN, UI::Primitive::ANSI::Color::BLACK}, Position{xOffset+3, 17}));
-    //printBoard(currentBoard, gridPosition);
-    _gameWindow = gameWindow;
+    gameScreen.elements.push_back(std::make_unique<UI::Element::EvenGrid>(game.getBoard().width,game.getBoard().height,3,1,gridPosition));
+    auto grid = dynamic_cast<UI::Element::EvenGrid* const>(gameScreen.elements.back().get());
+    grid->backgroundColor = UI::Primitive::ANSI::Color::BLACK;
+    grid->foregroundColor = UI::Primitive::ANSI::Color::BRIGHT_CYAN;
+    createUIElementsBoard(game, gridPosition);
+    gameScreen.elements.push_back(std::make_unique<UI::Element::Text>(UI::Primitive::FormattedText{" 1   2   3   4   5   6   7", UI::Primitive::ANSI::Color::BRIGHT_GREEN, UI::Primitive::ANSI::Color::BLACK}, Position{xOffset+3, 17}));
+
+    gameScreen.cursorPos = Position{xOffset+3, 19};
+    _gameScreen = gameScreen;
 }
 
 void Control::newGame()
@@ -212,10 +217,9 @@ void Control::newGame()
         default:
             _playerTypeMenu.displayScreen();
             continue;
-
+        }
         Game game(player1, player2, 7, 6, turnCallback);
         game.run();
-        }
     }
 }
 
@@ -231,7 +235,8 @@ void Control::showHelp()
 
 void Control::turnCallback(const Game& game)
 {
-    
+    initGameScreen(game);
+    _gameScreen.displayScreen();
 }
 
 UI::Screen Control::_botTypeMenu = UI::Screen();
@@ -261,5 +266,7 @@ std::shared_ptr<Actor> Control::getBot(uint8_t botNumber)
 
 uint16_t Control::playerTurnInput(const Game& game)
 {
-    return 0;
+    uint16_t input;
+    std::cin >> input;
+    return input-1;
 }
