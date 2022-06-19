@@ -138,11 +138,11 @@ std::vector<std::shared_ptr<UI::Element::UIElement>> Control::createUIElementsBo
             }
             else if(game.getBoard().getCell(j,i) == Board::CellState::PLAYER1)
             {
-                elements.push_back(std::make_shared<UI::Element::Text>(UI::Primitive::FormattedText{" • ", UI::Primitive::ANSI::Color::BRIGHT_MAGENTA, UI::Primitive::ANSI::Color::BLACK}, Position{currentCellPosition}));
+                elements.push_back(std::make_shared<UI::Element::Text>(UI::Primitive::FormattedText{" ● ", UI::Primitive::ANSI::Color::BRIGHT_MAGENTA, UI::Primitive::ANSI::Color::BLACK}, Position{currentCellPosition}));
             }
             else if(game.getBoard().getCell(j,i) == Board::CellState::PLAYER2)
             {
-                elements.push_back(std::make_shared<UI::Element::Text>(UI::Primitive::FormattedText{" • ", UI::Primitive::ANSI::Color::BRIGHT_GREEN, UI::Primitive::ANSI::Color::BLACK}, Position{currentCellPosition}));
+                elements.push_back(std::make_shared<UI::Element::Text>(UI::Primitive::FormattedText{" ● ", UI::Primitive::ANSI::Color::YELLOW, UI::Primitive::ANSI::Color::BLACK}, Position{currentCellPosition}));
             }
         }
         i2++;
