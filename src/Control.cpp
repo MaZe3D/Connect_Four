@@ -228,7 +228,7 @@ std::shared_ptr<Actor> Control::getBot(uint8_t botNumber)
     initBotTypeMenu(botNumber);
     _botTypeMenu.displayScreen();
     int selection;
-    while ((selection = getNummericInput()) != 5)
+    while ((selection = getNummericInput()))
     {
         switch (selection)
         {
@@ -241,7 +241,8 @@ std::shared_ptr<Actor> Control::getBot(uint8_t botNumber)
         case 4:
             return std::make_shared<RandomBot>();
         default:
-            _mainMenu.displayScreen();
+            _botTypeMenu.displayScreen();
+            continue;
         }
     }
 }
