@@ -18,7 +18,7 @@ public:
     Control();
     virtual ~Control();
     static void runProgram();
-    static void createUIElementsBoard(const Game& game, Position gridPosition);
+    static std::vector<std::shared_ptr<UI::Element::UIElement>> createUIElementsBoard(const Game& game, Position gridPosition);
 
 private:
     static bool showMainMenu();
