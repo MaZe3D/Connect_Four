@@ -5,21 +5,21 @@
 Board::Board(uint16_t width, uint16_t height)
     : width{width}, height{height}
 {
-    assert(width && height );
+    assert(width && height);
     m_cells = std::make_unique<CellState[]>((uint32_t)width*height);
     for (uint32_t i = 0; i < width*height; i++) m_cells[i] = CellState::EMPTY;
 }
 
 Board::CellState Board::getCell(uint16_t x, uint16_t y) const {
     assert(x < width && y < height);
-    return m_cells[y*height + x];
+    return m_cells[y*width + x];
 }
 
 Board::TurnResult Board::dropCoin(uint16_t column, CellState playerState) {
-	if (column >= width || playerState == CellState::EMPTY) return TurnResult::INVALID;
+    if (column >= width || playerState == CellState::EMPTY) return TurnResult::INVALID;
     for (int i = 0; i < height; i++) {
         if (getCell(column, i) == CellState::EMPTY) {
-            m_cells[i*height + column] = playerState;
+            m_cells[i*width + column] = playerState;
             return checkWin(column, i) ? TurnResult::VALID_WIN : TurnResult::VALID;
         }
     }
