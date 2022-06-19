@@ -36,9 +36,11 @@ private:
     static void initPlayerTypeMenu();
     static void initBotTypeMenu(uint8_t botNumber);
     static void initGameScreen(const Game& game);
+    static void initVictoryScreen(Game::GameResult gameResult);
 
     static UI::Screen _mainMenu;
     static UI::Screen _playerTypeMenu;
     static UI::Screen _botTypeMenu;
     static UI::Screen _gameScreen;
+    static UI::Screen _victoryScreen;
 };

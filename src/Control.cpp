@@ -5,27 +5,22 @@ UI::Screen Control::_mainMenu = UI::Screen();	// Initialize static member
 void Control::initMainMenu()
 {
     using namespace UI::Primitive;
-    UI::Screen screen = UI::Screen();  
-    
-    screen.elements.push_back(std::make_shared<UI::Element::FilledRectangle>(Position{7, 3}, 30, 5));
-    auto filledRectangle = dynamic_cast<UI::Element::FilledRectangle* const>(screen.elements[0].get());
-    filledRectangle->backgroundColor = ANSI::Color::BLACK;
-    filledRectangle->foregroundColor = ANSI::Color::GREEN;
+    UI::Screen screen = UI::Screen();
+ 
+ 
+    screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{"  _____                            _     ______", ANSI::Color::CYAN, ANSI::Color::BLACK}, Position{8, 2}));   
+    screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{" / ____|                          | |   |  ____|", ANSI::Color::CYAN, ANSI::Color::BLACK}, Position{8, 3}));   
+    screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{"| |     ___  _ __  _ __   ___  ___| |_  | |__ ___  _   _ _ __", ANSI::Color::CYAN, ANSI::Color::BLACK}, Position{8, 4}));   
+    screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{"| |    / _ \\| '_ \\| '_ \\ / _ \\/ __| __| |  __/ _ \\| | | | '__|", ANSI::Color::CYAN, ANSI::Color::BLACK}, Position{8, 5}));   
+    screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{"| |___| (_) | | | | | | |  __/ (__| |_  | | | (_) | |_| | |", ANSI::Color::CYAN, ANSI::Color::BLACK}, Position{8, 6}));   
+    screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{" \\_____\\___/|_| |_|_| |_|\\___|\\___|\\__| |_|  \\___/ \\__,_|_|", ANSI::Color::CYAN, ANSI::Color::BLACK}, Position{8, 7}));   
 
-    filledRectangle->cornerLowerLeft = "╚";
-    filledRectangle->cornerUpperRight = "╗";
-    filledRectangle->cornerLowerRight = "╝";
-    filledRectangle->cornerUpperLeft = "╔";
-    filledRectangle->horizontalLine = "═";
-    filledRectangle->verticalLine = "║";
-
-    screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{"Welcome to Connect Four!", ANSI::Color::GREEN, ANSI::Color::BLACK}, Position{10, 5}));
-    screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{"Menu", ANSI::Color::GREEN, ANSI::Color::BLACK}, Position{10, 9}));
+    screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{"Main Menu", ANSI::Color::BRIGHT_MAGENTA, ANSI::Color::BLACK}, Position{10, 9}));
     screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{"1 - Play", ANSI::Color::GREEN, ANSI::Color::BLACK}, Position{10, 10}));
-    screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{"2 - Continue", ANSI::Color::GREEN, ANSI::Color::BLACK}, Position{10, 11}));
+    //screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{"2 - Continue", ANSI::Color::GREEN, ANSI::Color::BLACK}, Position{10, 11}));
     screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{"3 - Help", ANSI::Color::GREEN, ANSI::Color::BLACK}, Position{10, 12}));
     screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{"4 - Quit", ANSI::Color::GREEN, ANSI::Color::BLACK}, Position{10, 13}));
-    screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{"Please enter an option: ", ANSI::Color::GREEN, ANSI::Color::BLACK}, Position{10, 15}));
+    screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{"Please enter an option: ", ANSI::Color::YELLOW, ANSI::Color::BLACK}, Position{10, 15}));
     screen.cursorPos = Position{34, 15};
     _mainMenu = screen;
 }
@@ -36,25 +31,20 @@ void Control::initPlayerTypeMenu()
 {
     using namespace UI::Primitive;
     UI::Screen screen = UI::Screen();  
-    
-    screen.elements.push_back(std::make_shared<UI::Element::FilledRectangle>(Position{7, 3}, 30, 5));
-    auto filledRectangle = dynamic_cast<UI::Element::FilledRectangle* const>(screen.elements[0].get());
-    filledRectangle->backgroundColor = ANSI::Color::BLACK;
-    filledRectangle->foregroundColor = ANSI::Color::GREEN;
 
-    filledRectangle->cornerLowerLeft = "╚";
-    filledRectangle->cornerUpperRight = "╗";
-    filledRectangle->cornerLowerRight = "╝";
-    filledRectangle->cornerUpperLeft = "╔";
-    filledRectangle->horizontalLine = "═";
-    filledRectangle->verticalLine = "║";
+    screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{"  _____                            _     ______", ANSI::Color::CYAN, ANSI::Color::BLACK}, Position{8, 2}));   
+    screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{" / ____|                          | |   |  ____|", ANSI::Color::CYAN, ANSI::Color::BLACK}, Position{8, 3}));   
+    screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{"| |     ___  _ __  _ __   ___  ___| |_  | |__ ___  _   _ _ __", ANSI::Color::CYAN, ANSI::Color::BLACK}, Position{8, 4}));   
+    screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{"| |    / _ \\| '_ \\| '_ \\ / _ \\/ __| __| |  __/ _ \\| | | | '__|", ANSI::Color::CYAN, ANSI::Color::BLACK}, Position{8, 5}));   
+    screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{"| |___| (_) | | | | | | |  __/ (__| |_  | | | (_) | |_| | |", ANSI::Color::CYAN, ANSI::Color::BLACK}, Position{8, 6}));   
+    screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{" \\_____\\___/|_| |_|_| |_|\\___|\\___|\\__| |_|  \\___/ \\__,_|_|", ANSI::Color::CYAN, ANSI::Color::BLACK}, Position{8, 7}));   
 
-    screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{"Welcome to Connect Four!", ANSI::Color::GREEN, ANSI::Color::BLACK}, Position{10, 5}));
-    screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{"Game Mode", ANSI::Color::YELLOW, ANSI::Color::BLACK}, Position{10, 9}));
-    screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{"1 - Player vs Player", ANSI::Color::YELLOW, ANSI::Color::BLACK}, Position{10, 10}));
-    screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{"2 - Player vs Bot", ANSI::Color::YELLOW, ANSI::Color::BLACK}, Position{10, 11}));
-    screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{"3 - Bot vs Bot", ANSI::Color::YELLOW, ANSI::Color::BLACK}, Position{10, 12}));
-    screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{"4 - Back", ANSI::Color::YELLOW, ANSI::Color::BLACK}, Position{10, 13}));
+
+    screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{"Game Mode", ANSI::Color::BRIGHT_MAGENTA, ANSI::Color::BLACK}, Position{10, 9}));
+    screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{"1 - Player vs Player", ANSI::Color::GREEN, ANSI::Color::BLACK}, Position{10, 10}));
+    screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{"2 - Player vs Bot", ANSI::Color::GREEN, ANSI::Color::BLACK}, Position{10, 11}));
+    screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{"3 - Bot vs Bot", ANSI::Color::GREEN, ANSI::Color::BLACK}, Position{10, 12}));
+    screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{"4 - Back", ANSI::Color::GREEN, ANSI::Color::BLACK}, Position{10, 13}));
     screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{"Please enter an option: ", ANSI::Color::YELLOW, ANSI::Color::BLACK}, Position{10, 15}));
     screen.cursorPos = Position{34, 15};
     _playerTypeMenu = screen;
@@ -65,29 +55,22 @@ void Control::initBotTypeMenu(uint8_t botNumber)
     using namespace UI::Primitive;
     UI::Screen screen = UI::Screen();  
     
-    screen.elements.push_back(std::make_shared<UI::Element::FilledRectangle>(Position{7, 3}, 30, 5));
-    auto filledRectangle = dynamic_cast<UI::Element::FilledRectangle* const>(screen.elements[0].get());
-    filledRectangle->backgroundColor = ANSI::Color::BLACK;
-    filledRectangle->foregroundColor = ANSI::Color::GREEN;
+        screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{"  _____                            _     ______", ANSI::Color::CYAN, ANSI::Color::BLACK}, Position{8, 2}));   
+    screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{" / ____|                          | |   |  ____|", ANSI::Color::CYAN, ANSI::Color::BLACK}, Position{8, 3}));   
+    screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{"| |     ___  _ __  _ __   ___  ___| |_  | |__ ___  _   _ _ __", ANSI::Color::CYAN, ANSI::Color::BLACK}, Position{8, 4}));   
+    screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{"| |    / _ \\| '_ \\| '_ \\ / _ \\/ __| __| |  __/ _ \\| | | | '__|", ANSI::Color::CYAN, ANSI::Color::BLACK}, Position{8, 5}));   
+    screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{"| |___| (_) | | | | | | |  __/ (__| |_  | | | (_) | |_| | |", ANSI::Color::CYAN, ANSI::Color::BLACK}, Position{8, 6}));   
+    screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{" \\_____\\___/|_| |_|_| |_|\\___|\\___|\\__| |_|  \\___/ \\__,_|_|", ANSI::Color::CYAN, ANSI::Color::BLACK}, Position{8, 7}));
 
-    filledRectangle->cornerLowerLeft = "╚";
-    filledRectangle->cornerUpperRight = "╗";
-    filledRectangle->cornerLowerRight = "╝";
-    filledRectangle->cornerUpperLeft = "╔";
-    filledRectangle->horizontalLine = "═";
-    filledRectangle->verticalLine = "║";
-
-    screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{"Welcome to Connect Four!", ANSI::Color::GREEN, ANSI::Color::BLACK}, Position{10, 5}));
-    screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{"Bot #", ANSI::Color::CYAN, ANSI::Color::BLACK}, Position{10, 9}));
-    screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{std::to_string(botNumber), ANSI::Color::MAGENTA, ANSI::Color::BLACK}, Position{15, 9}));
+    screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{"Bot ", ANSI::Color::CYAN, ANSI::Color::BLACK}, Position{10, 9}));
+    screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{"#" + std::to_string(botNumber), ANSI::Color::BRIGHT_MAGENTA, ANSI::Color::BLACK}, Position{14, 9}));
     screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{": Select Mode", ANSI::Color::CYAN, ANSI::Color::BLACK}, Position{16, 9}));
-    screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{"1 - Column Bot", ANSI::Color::CYAN, ANSI::Color::BLACK}, Position{10, 10}));
-    screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{"2 - Horizontal Bot", ANSI::Color::CYAN, ANSI::Color::BLACK}, Position{10, 11}));
-    screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{"3 - Vertical Bot", ANSI::Color::CYAN, ANSI::Color::BLACK}, Position{10, 12}));
-    screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{"4 - Random Bot", ANSI::Color::CYAN, ANSI::Color::BLACK}, Position{10, 13}));
-    screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{"5 - Back", ANSI::Color::CYAN, ANSI::Color::BLACK}, Position{10, 14}));
-    screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{"Please enter an option: ", ANSI::Color::YELLOW, ANSI::Color::BLACK}, Position{10, 16}));
-    screen.cursorPos = Position{34, 16};
+    screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{"1 - Column Bot", ANSI::Color::GREEN, ANSI::Color::BLACK}, Position{10, 10}));
+    screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{"2 - Horizontal Bot", ANSI::Color::GREEN, ANSI::Color::BLACK}, Position{10, 11}));
+    screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{"3 - Vertical Bot", ANSI::Color::GREEN, ANSI::Color::BLACK}, Position{10, 12}));
+    screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{"4 - Random Bot", ANSI::Color::GREEN, ANSI::Color::BLACK}, Position{10, 13}));
+    screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{"Please enter an option: ", ANSI::Color::YELLOW, ANSI::Color::BLACK}, Position{10, 15}));
+    screen.cursorPos = Position{34, 15};
     _botTypeMenu = screen;
 }
 
@@ -104,14 +87,10 @@ bool Control::showMainMenu()
     int selection = 0;
     while ((selection = getNummericInput()) != 4)
     {
-        
         switch (selection)
         {
         case 1:
             newGame();
-            break;
-        case 2:
-            continueGame();
             break;
         case 3:
             showHelp();
@@ -160,7 +139,7 @@ void Control::createUIElementsBoard(const Game& game, Position gridPosition)
             }
             else if(game.getBoard().getCell(j,i) == Board::CellState::PLAYER1)
             {
-                _gameScreen.elements.push_back(std::make_unique<UI::Element::Text>(UI::Primitive::FormattedText{" • ", UI::Primitive::ANSI::Color::MAGENTA, UI::Primitive::ANSI::Color::BLACK}, Position{currentCellPosition}));
+                _gameScreen.elements.push_back(std::make_unique<UI::Element::Text>(UI::Primitive::FormattedText{" • ", UI::Primitive::ANSI::Color::BRIGHT_MAGENTA, UI::Primitive::ANSI::Color::BLACK}, Position{currentCellPosition}));
             }
             else if(game.getBoard().getCell(j,i) == Board::CellState::PLAYER2)
             {
@@ -219,7 +198,10 @@ void Control::newGame()
             continue;
         }
         Game game(player1, player2, 7, 6, turnCallback);
-        game.run();
+        initVictoryScreen(game.run());
+        _victoryScreen.displayScreen();
+        while(getNummericInput() != 0);
+        break;
     }
 }
 
@@ -269,4 +251,39 @@ uint16_t Control::playerTurnInput(const Game& game)
     uint16_t input;
     std::cin >> input;
     return input-1;
+}
+
+UI::Screen Control::_victoryScreen = UI::Screen();
+
+void Control::initVictoryScreen(Game::GameResult gameResult)
+{
+    using namespace UI::Primitive;
+    UI::Screen screen = UI::Screen();  
+    
+    screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{"  _____          __  __ ______    ______      ________ _____", ANSI::Color::GREEN, ANSI::Color::BLACK}, Position{10, 5}));
+    screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{" / ____|   /\\   |  \\/  |  ____|  / __ \\ \\    / /  ____|  __ \\", ANSI::Color::GREEN, ANSI::Color::BLACK}, Position{10, 6}));
+    screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{"| |  __   /  \\  | \\  / | |__    | |  | \\ \\  / /| |__  | |__) |", ANSI::Color::GREEN, ANSI::Color::BLACK}, Position{10, 7}));
+    screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{"| | |_ | / /\\ \\ | |\\/| |  __|   | |  | |\\ \\/ / |  __| |  _  /", ANSI::Color::GREEN, ANSI::Color::BLACK}, Position{10, 8}));
+    screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{"| |__| |/ ____ \\| |  | | |____  | |__| | \\  /  | |____| | \\ \\", ANSI::Color::GREEN, ANSI::Color::BLACK}, Position{10, 9}));
+    screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{" \\_____/_/    \\_\\_|  |_|______|  \\____/   \\/   |______|_|  \\_\\", ANSI::Color::GREEN, ANSI::Color::BLACK}, Position{10, 10}));
+
+    switch (gameResult)
+    {  
+    case Game::GameResult::PLAYER1:
+        screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{"Victory for ", ANSI::Color::CYAN, ANSI::Color::BLACK}, Position{10, 12}));
+        screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{"Player 1", ANSI::Color::BRIGHT_MAGENTA, ANSI::Color::BLACK}, Position{22, 12}));
+        break;
+    case Game::GameResult::PLAYER2:
+        screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{"Victory for ", ANSI::Color::CYAN, ANSI::Color::BLACK}, Position{10, 12}));
+        screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{"Player 2", ANSI::Color::YELLOW, ANSI::Color::BLACK}, Position{22, 12}));
+        break;
+    case Game::GameResult::DRAW:
+        screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{"The game is a draw!", ANSI::Color::CYAN, ANSI::Color::BLACK}, Position{10, 12}));
+        break;
+    }
+
+    screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{"Enter \'0\' to continue: ", ANSI::Color::GREEN, ANSI::Color::BLACK}, Position{10, 14}));
+    
+    screen.cursorPos = Position{33, 14};
+    _victoryScreen = screen;
 }
