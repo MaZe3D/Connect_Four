@@ -157,8 +157,7 @@ void Control::initGameScreen(const Game& game)
     Position gridPosition = Position{xOffset + 2,4};
     //std::string turnChar = "1";
 
-    //gameWindow.elements.push_back(std::make_unique<UI::Element::Text>(UI::Primitive::FormattedText{"Somebody please make a move", UI::Primitive::ANSI::Color::RED, UI::Primitive::ANSI::Color::BLACK}, Position{xOffset+1, 2}));
-    //gameWindow.elements.push_back(std::make_unique<UI::Element::Text>(UI::Primitive::FormattedText{"Hello World!", UI::Primitive::ANSI::Color::RED, UI::Primitive::ANSI::Color::BLACK}, Position{20, 11}));
+    gameScreen.elements.push_back(std::make_unique<UI::Element::Text>(UI::Primitive::FormattedText{"Somebody please make a move", UI::Primitive::ANSI::Color::RED, UI::Primitive::ANSI::Color::BLACK}, Position{xOffset+1, 2}));
     gameScreen.elements.push_back(std::make_unique<UI::Element::EvenGrid>(game.getBoard().width,game.getBoard().height,3,1,gridPosition));
     auto grid = dynamic_cast<UI::Element::EvenGrid* const>(gameScreen.elements.back().get());
     grid->backgroundColor = UI::Primitive::ANSI::Color::BLACK;
@@ -166,7 +165,8 @@ void Control::initGameScreen(const Game& game)
     auto boardUIElements = createUIElementsBoard(game, gridPosition);
     gameScreen.elements.push_back(std::make_unique<UI::Element::Text>(UI::Primitive::FormattedText{" 1   2   3   4   5   6   7", UI::Primitive::ANSI::Color::BRIGHT_GREEN, UI::Primitive::ANSI::Color::BLACK}, Position{xOffset+3, 17}));
     gameScreen.elements.insert(gameScreen.elements.end(), boardUIElements.begin(), boardUIElements.end());
-    gameScreen.cursorPos = Position{xOffset+3, 19};
+    gameScreen.elements.push_back(std::make_shared<UI::Element::Text>(UI::Primitive::FormattedText{"Please Enter a row to drop your coin: ", UI::Primitive::ANSI::Color::GREEN, UI::Primitive::ANSI::Color::BLACK}, Position{xOffset, 20}));
+    gameScreen.cursorPos = Position{xOffset+38, 20};
     _gameScreen = gameScreen;
 }
 
