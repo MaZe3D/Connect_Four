@@ -104,7 +104,7 @@ bool Control::showMainMenu()
 uint32_t Control::getNummericInput()
 {
     std::string input;
-    std::cin >> input;
+    std::getline(std::cin, input);
     try
     {
         return std::stoi(input);
@@ -249,9 +249,19 @@ std::shared_ptr<Actor> Control::getBot(uint8_t botNumber)
 
 uint16_t Control::playerTurnInput(const Game& game)
 {
-    uint16_t input;
-    std::cin >> input;
-    return input-1;
+
+    std::string input;
+    std::getline(std::cin, input);
+    try {
+        return std::stoi(input)-1;
+    }
+    catch(std::invalid_argument) {}
+    catch(std::out_of_range) {}
+
+    // reprint board to reset cursor position
+    initGameScreen(game);
+    _gameScreen.displayScreen();
+    return -1;
 }
 
 UI::Screen Control::_victoryScreen = UI::Screen();
