@@ -68,6 +68,7 @@ namespace UI::Element
     {
     public:
         virtual void draw() = 0;
+        virtual ~UIElement() = default;
     };
 
     class Text : public UIElement

@@ -6,4 +6,5 @@
 class Actor {
 public:
     virtual uint16_t makeMove(const Game& game) = 0;
+    virtual ~Actor() = default;
 };

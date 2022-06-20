@@ -12,4 +12,5 @@ uint16_t ColumnBot::makeMove(const Game &game) {
         }
     }
     assert(false && "ColumnBot::makeMove: no empty cell found -> invalid board state");
+    return 0;
 }
