@@ -109,11 +109,11 @@ uint32_t Control::getNummericInput()
     {
         return std::stoi(input);
     }
-    catch(std::invalid_argument)
+    catch(const std::invalid_argument&)
     {
         return 0;
     }
-    catch(std::out_of_range)
+    catch(const std::out_of_range&)
     {
         return 0;
     }
@@ -255,8 +255,8 @@ uint16_t Control::playerTurnInput(const Game& game)
     try {
         return std::stoi(input)-1;
     }
-    catch(std::invalid_argument) {}
-    catch(std::out_of_range) {}
+    catch(const std::invalid_argument&) {}
+    catch(const std::out_of_range&) {}
 
     // reprint board to reset cursor position
     initGameScreen(game);
