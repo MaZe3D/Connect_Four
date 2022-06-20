@@ -14,9 +14,13 @@ public:
     const Board& getBoard() const;
     const std::shared_ptr<Actor>& getActor1() const;
     const std::shared_ptr<Actor>& getActor2() const;
+    const std::shared_ptr<Actor>& getCurrentActor() const;
+    const std::shared_ptr<Actor>& getLastActor() const;
 
 private:
     const std::shared_ptr<Actor> m_actors[2];
     Board m_board;
     void (* const m_turnCallback)(const Game&);
+
+    uint8_t m_currentActor;
 };

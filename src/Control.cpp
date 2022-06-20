@@ -1,4 +1,5 @@
 #include "Control.h"
+#include "logic/actors/Player.h"
 
 UI::Screen Control::_mainMenu = UI::Screen();	// Initialize static member
 
@@ -165,11 +166,18 @@ void Control::initGameScreen(const Game& game)
     auto boardUIElements = createUIElementsBoard(game, gridPosition);
     gameScreen.elements.push_back(std::make_unique<UI::Element::Text>(UI::Primitive::FormattedText{" 1   2   3   4   5   6   7", UI::Primitive::ANSI::Color::BRIGHT_GREEN, UI::Primitive::ANSI::Color::BLACK}, Position{xOffset+3, 17}));
     gameScreen.elements.insert(gameScreen.elements.end(), boardUIElements.begin(), boardUIElements.end());
-    gameScreen.elements.push_back(std::make_shared<UI::Element::Text>(UI::Primitive::FormattedText{"Please Enter a row to drop your coin: ", UI::Primitive::ANSI::Color::GREEN, UI::Primitive::ANSI::Color::BLACK}, Position{xOffset, 20}));
-    gameScreen.cursorPos = Position{xOffset+38, 20};
+    if (std::dynamic_pointer_cast<Player>(game.getCurrentActor()) != nullptr) {
+        gameScreen.elements.push_back(std::make_shared<UI::Element::Text>(UI::Primitive::FormattedText{"Please enter a row to drop your coin: ", UI::Primitive::ANSI::Color::GREEN, UI::Primitive::ANSI::Color::BLACK}, Position{xOffset, 20}));
+        gameScreen.cursorPos = Position{xOffset+38, 20};
+    }
+    else {
+        gameScreen.elements.push_back(std::make_shared<UI::Element::Text>(UI::Primitive::FormattedText{"Press <ENTER> for next step! ", UI::Primitive::ANSI::Color::GREEN, UI::Primitive::ANSI::Color::BLACK}, Position{xOffset, 20}));
+        gameScreen.cursorPos = Position{xOffset+29, 20};
+    }
     _gameScreen = gameScreen;
 }
 
+static size_t gameTurn = 0;
 void Control::newGame()
 {
     UI::Screen::setBackgroundColor(UI::Primitive::ANSI::Color::BLACK);
@@ -198,12 +206,33 @@ void Control::newGame()
             _playerTypeMenu.displayScreen();
             continue;
         }
+        gameTurn = 0;
         Game game(player1, player2, 7, 6, turnCallback);
         initVictoryScreen(game.run());
         _victoryScreen.displayScreen();
         getNummericInput();
         break;
     }
+}
+
+void Control::turnCallback(const Game& game)
+{
+    if (gameTurn++ != 0 && std::dynamic_pointer_cast<Player>(game.getLastActor()) == nullptr) {
+        getNummericInput();
+    }
+    initGameScreen(game);
+    _gameScreen.displayScreen();
+}
+
+uint16_t Control::playerTurnInput(const Game& game)
+{
+    uint32_t column = getNummericInput();
+
+    // reset cursor position
+    initGameScreen(game);
+    _gameScreen.displayScreen();
+
+    return column - 1;
 }
 
 void Control::continueGame()
@@ -214,12 +243,6 @@ void Control::continueGame()
 void Control::showHelp()
 {
     
-}
-
-void Control::turnCallback(const Game& game)
-{
-    initGameScreen(game);
-    _gameScreen.displayScreen();
 }
 
 UI::Screen Control::_botTypeMenu = UI::Screen();
@@ -245,23 +268,6 @@ std::shared_ptr<Actor> Control::getBot(uint8_t botNumber)
             continue;
         }
     }
-}
-
-uint16_t Control::playerTurnInput(const Game& game)
-{
-
-    std::string input;
-    std::getline(std::cin, input);
-    try {
-        return std::stoi(input)-1;
-    }
-    catch(const std::invalid_argument&) {}
-    catch(const std::out_of_range&) {}
-
-    // reprint board to reset cursor position
-    initGameScreen(game);
-    _gameScreen.displayScreen();
-    return -1;
 }
 
 UI::Screen Control::_victoryScreen = UI::Screen();
@@ -293,7 +299,7 @@ void Control::initVictoryScreen(Game::GameResult gameResult)
         break;
     }
 
-    screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{"Press <Enter> to continue: ", ANSI::Color::GREEN, ANSI::Color::BLACK}, Position{10, 14}));
+    screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{"Press <ENTER> to continue: ", ANSI::Color::GREEN, ANSI::Color::BLACK}, Position{10, 14}));
     
     screen.cursorPos = Position{37, 14};
     _victoryScreen = screen;
