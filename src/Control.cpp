@@ -228,10 +228,9 @@ std::shared_ptr<Actor> Control::getBot(uint8_t botNumber)
 {
     initBotTypeMenu(botNumber);
     _botTypeMenu.displayScreen();
-    int selection;
-    while ((selection = getNummericInput()))
+    while (true)
     {
-        switch (selection)
+        switch (getNummericInput())
         {
         case 1:
             return std::make_shared<ColumnBot>();
