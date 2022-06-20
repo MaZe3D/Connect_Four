@@ -1,4 +1,4 @@
-COMPILER_AND_LINKER := g++
+COMPILER_AND_LINKER := clang++
 SOURCE_FILE_EXTENSION := .cpp
 
 # caution: "make clean" removes OBJ and BIN directories completely

@@ -201,7 +201,7 @@ void Control::newGame()
         Game game(player1, player2, 7, 6, turnCallback);
         initVictoryScreen(game.run());
         _victoryScreen.displayScreen();
-        while(getNummericInput() != 0);
+        getNummericInput();
         break;
     }
 }
@@ -293,8 +293,8 @@ void Control::initVictoryScreen(Game::GameResult gameResult)
         break;
     }
 
-    screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{"Enter \'0\' to continue: ", ANSI::Color::GREEN, ANSI::Color::BLACK}, Position{10, 14}));
+    screen.elements.push_back(std::make_shared<UI::Element::Text>(FormattedText{"Press <Enter> to continue: ", ANSI::Color::GREEN, ANSI::Color::BLACK}, Position{10, 14}));
     
-    screen.cursorPos = Position{33, 14};
+    screen.cursorPos = Position{37, 14};
     _victoryScreen = screen;
 }
